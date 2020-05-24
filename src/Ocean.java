@@ -35,9 +35,9 @@ public class Ocean {
             
             //TO DO check if no ship is there, if it wont go outside the board
 
-            for (int i; i < localShip.size(); i++){
+            for (int i = 0; i < localShip.getShipLength(); i++){
                 List<Square> localRow = squares.get(localY);
-                localRow.set(localX + i, localShip.get(0 + i)); 
+                localRow.set(localX + i, localShip.getSqareByIndex(0 + i)); 
             }
         }
     }

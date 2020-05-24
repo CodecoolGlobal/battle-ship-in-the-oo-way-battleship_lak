@@ -6,15 +6,22 @@ public class Ship {
     private boolean isVertical;
     private int coordinateX;
     private int coordinateY;
+    private int shipLength;
+
     
-    public Ship(int shipLenght, boolean isVertical, int coordinateX, int coordinateY) {
-        for (int i = 0; i < shipLenght; i++) {
+    public Ship(int shipLength, boolean isVertical, int coordinateX, int coordinateY) {
+        // List<Square> squares;
+        for (int i = 0; i < shipLength; i++) {
             Square localSquare = new Square(); 
             this.squares.add(localSquare);
         }
+
+        // this.squares = squares;
         this.isVertical = isVertical;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY; 
+        this.shipLength = shipLength;
+
     }
 
     public boolean getIsVertical(){
@@ -27,6 +34,14 @@ public class Ship {
 
     public int getCoordinateY(){
         return coordinateY;
+    }
+
+    public int getShipLength(){
+        return shipLength;
+    }
+
+    public Square getSqareByIndex(int index){
+        return squares.get(index);
     }
 
 }
