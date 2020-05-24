@@ -45,14 +45,14 @@ public class Ocean {
 
     @Override
     public String toString(){
-        String StringBuilder = "";
+        String outputString = "";
         for (int y = 0; y < HEIGHT; y++){
             for (int x = 0; x < WIDTH; x++){
-                StringBuilder += squares.get(y).get(x).toString();    
+                outputString += squares.get(y).get(x).toString();    
             }
-            StringBuilder += "\n";
+            outputString += "\n";
         }
-        return StringBuilder;
+        return outputString;
     }
 
 }

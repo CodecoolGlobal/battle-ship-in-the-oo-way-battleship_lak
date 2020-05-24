@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Ship {
 
@@ -10,13 +11,16 @@ public class Ship {
 
     
     public Ship(int shipLength, boolean isVertical, int coordinateX, int coordinateY) {
-        // List<Square> squares;
+        
+        //to private method ---------------------------------
+        List<Square> squares = new ArrayList();
         for (int i = 0; i < shipLength; i++) {
             Square localSquare = new Square(); 
-            this.squares.add(localSquare);
+            squares.add(localSquare);
         }
+        //-----------------------------------------------------
 
-        // this.squares = squares;
+        this.squares = squares;
         this.isVertical = isVertical;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY; 
