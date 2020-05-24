@@ -27,6 +27,32 @@ public class Ocean {
     }
 
 
+    public void putShipsOnBoard(List<Ship> ships, List<List<Square>> squares) {
+        for (int index = 0; index < ships.size(); index++){
+            Ship localShip = ships.get(index);
+            int localX = localShip.getCoordinateX();
+            int localY = localShip.getCoordinateY();
+            
+            //TO DO check if no ship is there, if it wont go outside the board
 
-    
+            for (int i; i < localShip.size(); i++){
+                List<Square> localRow = squares.get(localY);
+                localRow.set(localX + i, localShip.get(0 + i)); 
+            }
+        }
+    }
+
+
+    @Override
+    public String toString(){
+        String StringBuilder = "";
+        for (int y = 0; y < HEIGHT; y++){
+            for (int x = 0; x < WIDTH; x++){
+                StringBuilder += squares.get(y).get(x).toString();    
+            }
+            StringBuilder += "\n";
+        }
+        return StringBuilder;
+    }
+
 }
