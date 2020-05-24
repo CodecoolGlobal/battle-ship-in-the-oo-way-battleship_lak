@@ -8,6 +8,7 @@ public class Main {
         List<Ship> player1ships = new ArrayList<Ship>();
 
         Ship Carrier = new Ship(5, true, 3, 3);
+        Carrier.getSqareByIndex(0).hit();
         player1ships.add(Carrier);
 
 

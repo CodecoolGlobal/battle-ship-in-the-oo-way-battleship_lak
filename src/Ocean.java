@@ -12,6 +12,7 @@ public class Ocean {
 
     public Ocean(List<Ship> ships) {
         
+        List<List<Square>> squares = new ArrayList<List<Square>>();
         for (int i = 0; i < HEIGHT; i++) {
             List<Square> localSquares = new ArrayList<Square>();
 
@@ -19,10 +20,10 @@ public class Ocean {
                 Square localSquare = new Square();
                 localSquares.add(localSquare);    
             }
-            this.squares.add(localSquares);
+            squares.add(localSquares);
         }
         
-        //this.squares = squares;
+        this.squares = squares;
         this.ships = ships;
     }
 
