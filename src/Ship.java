@@ -13,7 +13,7 @@ public class Ship {
     public Ship(int shipLength, boolean isVertical, int coordinateX, int coordinateY) {
         
         //to private method ---------------------------------
-        List<Square> squares = new ArrayList();
+        List<Square> squares = new ArrayList<Square>();
         for (int i = 0; i < shipLength; i++) {
             Square localSquare = new Square(); 
             squares.add(localSquare);

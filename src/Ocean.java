@@ -15,7 +15,7 @@ public class Ocean {
         for (int i = 0; i < HEIGHT; i++) {
             List<Square> localSquares = new ArrayList<Square>();
 
-            for (int j = 0; j < WIDTH; i++) {
+            for (int j = 0; j < WIDTH; j++) {
                 Square localSquare = new Square();
                 localSquares.add(localSquare);    
             }
