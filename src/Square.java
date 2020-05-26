@@ -1,25 +1,43 @@
 public class Square {
     private final static String SYMBOL = "X";
-
-    private boolean isHit;
+    private final static String SHIP = "S";
+    private boolean isHit, isShip;
     
-    /*
+    
     public Square() {
-        this.isHit = isHit;i
-    }*/
+        this.isHit = false;
+        this.isShip = false;
+    }
 
 
     public void hit() {
         isHit = true;
     }
 
+
+    public void changeToAShip() {
+        isShip = true;
+    }
+
+
     public boolean getIsHit(){
         return isHit;
     }
 
 
+    public boolean getIsShip() {
+        return isShip;
+    }
+
+
     @Override
     public String toString() {
-        return isHit ? SYMBOL : " ";
+        if (isHit)
+            return SYMBOL;
+        else if (isShip)
+            return SHIP;
+        else
+            return " ";
+        //return isHit ? SYMBOL : " ";
     }
 }
