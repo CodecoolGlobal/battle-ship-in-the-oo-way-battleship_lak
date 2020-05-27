@@ -43,8 +43,8 @@ public class Main {
         
         String options[] = {"Single player", "Multiplayer", "Simulation"};
         
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();
+        //System.out.print("\033[H\033[2J");  
+        //System.out.flush();
         
         System.out.println("MENU:");
 
@@ -56,35 +56,49 @@ public class Main {
 
 
     private static void fightPvC() {
-        Ocean player1Ocean = getplayerOcean();
-        //System.out.print(player1Ocean.toString());
-
-        //Add random generetic enemyOcean
+        Ocean player1Ocean = getPlayerOcean();
+        Ocean enemyOcean = getEnemyOcean();
+    
         //Add fight
     }
 
 
     private static void fightPvP() {
-        Ocean player1Ocean = getplayerOcean(); 
-        Ocean player2Ocean = getplayerOcean();
+        Ocean player1Ocean = getPlayerOcean(); 
+        Ocean player2Ocean = getPlayerOcean();
         
         //Add fight
     }
 
 
     private static void fightCvC() {
-        // Add body of method
+        Ocean enemy1Ocean = getEnemyOcean();
+        Ocean enemy2Ocean = getEnemyOcean();
+        
+        System.out.print(enemy1Ocean.toString());
+        System.out.print(enemy2Ocean.toString());
+       
+        //Add fight
     }
 
 
-    private static Ocean getplayerOcean() {
-        List<Ship> playerships = crateShips();
-        Ocean playerOcean = new Ocean(playerships);
+    private static Ocean getPlayerOcean() {
+        List<Ship> playerShips = crateShips();
+        Ocean playerOcean = new Ocean(playerShips);
 
-        playerOcean.putShipsOnBoard(playerships, playerOcean);
+        playerOcean.putShipsOnBoard(playerShips, playerOcean);
         return playerOcean;
     }
     
+
+    private static Ocean getEnemyOcean() {
+        List<Ship> enemyShips = crateShips();
+        Ocean enemyOcean = new Ocean(enemyShips);
+
+        enemyOcean.generateEnemyOcean(enemyShips, enemyOcean);
+        return enemyOcean;
+    }
+
 
     private static List<Ship> crateShips() {
         Ship Carrier = new Ship("Carrier", 5, true, 0, 0);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.lang.*;
+import java.util.Random;
 
 
 public class Ocean {
@@ -193,6 +194,41 @@ public class Ocean {
     }
 
 
+    public void generateEnemyOcean(List<Ship> ships, Ocean ocean) {
+        for (int i = 0; i < ships.size(); i ++) {
+            getRandomShipSettings(ocean, ships.get(i));
+            putOneShipOnBoard(ocean, ships.get(i));
+        }
+    }
+
+
+    private static void getRandomShipSettings(Ocean ocean, Ship ship) {
+        int coordinateX, coordinateY;
+        boolean isCorrect = false;
+
+        while (!isCorrect) {
+            Random rn = new Random();
+            int Horizontal = rn.nextInt(100);
+
+            if (Horizontal < 50)
+                ship.setHorizontal();
+            
+            if (ship.getIsVertical()) {
+                coordinateX = rn.nextInt(WIDTH);
+                coordinateY = rn.nextInt(HEIGHT - ship.getShipLength());
+            }
+            else {
+                coordinateX = rn.nextInt(WIDTH - ship.getShipLength());
+                coordinateY = rn.nextInt(HEIGHT);
+            }
+            
+            ship.setCoordinateX(coordinateX);
+            ship.setCoordinateY(coordinateY);
+            isCorrect = checkIfInRadius(ocean, ship);
+        }
+    }
+
+
     public List<List<Square>> getSquares() {
         return squares;
     }
@@ -228,5 +264,4 @@ public class Ocean {
         outputString = sB.toString();
         return outputString;
     }
-
 }

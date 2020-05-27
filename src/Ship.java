@@ -38,6 +38,12 @@ public class Ship {
         return isVertical;
     }
 
+
+    public void setHorizontal() {
+        this.isVertical = false;
+    }
+
+
     public int getCoordinateX() {
         return coordinateX;
     }   
