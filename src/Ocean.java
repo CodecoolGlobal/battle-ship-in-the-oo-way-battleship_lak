@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.lang.*;
 
 
 public class Ocean {
@@ -32,7 +33,7 @@ public class Ocean {
     }
 
 
-    public static void clearScreen() {
+    public void clearScreen() {
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }
@@ -40,41 +41,120 @@ public class Ocean {
 
     public void putShipsOnBoard(List<Ship> ships, Ocean ocean) {
         for (int i = 0; i < ships.size(); i ++) {
-            getCoordinates(ocean, ships.get(i));
+            getShipSettings(ocean, ships.get(i));
             putOneShipOnBoard(ocean, ships.get(i));
         }
-
-        /*for (int index = 0; index < ships.size(); index++){
-            Ship localShip = ships.get(index);
-            int localX = localShip.getCoordinateX();
-            int localY = localShip.getCoordinateY();
-            
-            //TO DO check if no ship is there, if it wont go outside the board
-
-            for (int i = 0; i < localShip.getShipLength(); i++){
-                List<Square> localRow = squares.get(localY);
-                localRow.set(localX + i, localShip.getSqareByIndex(0 + i)); 
-            }
-        }*/
     }
 
-    private static void getCoordinates(Ocean ocean, Ship ship) {
+
+    private static void getShipSettings(Ocean ocean, Ship ship) {
+        int coordinateX, coordinateY;
         boolean isCorrect = false;
 
         while (!isCorrect) {
+            coordinateX = putCoordinate(ocean, ship, "X");
+            //coordinateX = 1;
+            ship.setCoordinateX(coordinateX - 1);
+            coordinateY = putCoordinate(ocean, ship, "Y");
+            //coordinateY = 1;
+            ship.setCoordinateY(coordinateY - 1);
+            isCorrect = checkIfInRadius(ocean, ship);
+            //isCorrect = true;
+        }
+    }
+
+
+    private static void printShipSetup(boolean isVertical) {
+        if (isVertical)
+            System.out.println("Ship setup: Vertical");
+        else
+            System.out.println("Ship setup: Horizontal");
+    }
+
+
+    private static int putCoordinate(Ocean ocean, Ship ship, String XY) {
+        boolean isCorrect = false;
+        int coordinate = 0;
+        while (!isCorrect) {
             try {
-                clearScreen();
+                ocean.clearScreen();
+                System.out.print(ocean.toString());
                 System.out.println(ship.getNameOfShip());
-                System.out.print("Enter the coordinate X: ");
-                ship.setCoordinateX(scanner.nextInt());
-                System.out.print("Enter the coordinate Y: ");
-                ship.setCoordinateY(scanner.nextInt());
-                isCorrect = true;
+                printShipSetup(ship.getIsVertical());
+                System.out.print("Enter the coordinate " + XY +": ");
+                coordinate = scanner.nextInt();
+                isCorrect = checkCorrectCoordinate(ocean, ship, coordinate, XY);
             }
-            catch (InputMismatchException e) {
-                isCorrect = false;
+            catch (InputMismatchException e) {}
+        }
+        return coordinate; 
+    }
+
+
+    private static boolean checkCorrectCoordinate(Ocean ocean, Ship ship, int coordinate, String XY) {
+        if (!checkIfInRange(ship, coordinate, XY)) 
+            return false;
+        else
+            return true;
+    }
+
+
+    private static boolean checkIfInRange(Ship ship, int coordinate, String XY) {
+
+        if (ship.getIsVertical() && XY.equals("Y")) 
+            return (0 < coordinate && coordinate + ship.getShipLength() <= HEIGHT) ? true : false;
+        else if (!ship.getIsVertical() && XY.equals("Y")) 
+            return (0 < coordinate && coordinate <= HEIGHT) ? true : false;
+        else if (ship.getIsVertical() && XY.equals("X")) 
+            return (0 < coordinate && coordinate <= WIDTH) ? true : false;
+        else
+            return (0 < coordinate && coordinate + ship.getShipLength() <= WIDTH) ? true : false;
+    }
+
+
+    private static boolean checkIfInRadius(Ocean ocean, Ship ship) {        
+        if (ship.getIsVertical()) {
+            return !ifInRadiusVertical(ocean, ship);
+        }       
+        return !ifInRadiusHorizontal(ocean, ship);
+    }
+
+
+    private static boolean ifInRadiusVertical(Ocean ocean, Ship ship) {
+        int radius = 2;
+        int cordinateX = ship.getCoordinateX();
+        int cordinateY = ship.getCoordinateY();
+
+        for (int i = 0; i < ship.getShipLength() ; i++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                for (int x = 0; x < WIDTH; x++) {
+                    if (Math.pow(radius, 2) > Math.pow((cordinateX - x), 2) + Math.pow((cordinateY + i - y), 2)) {
+                        if (ocean.squares.get(y).get(x).getIsShip())
+                            return true;
+                    }
+                }
             }
         }
+        return false;
+    }
+
+
+    private static boolean ifInRadiusHorizontal(Ocean ocean, Ship ship) {
+        int radius = 2;
+        int cordinateX = ship.getCoordinateX();
+        int cordinateY = ship.getCoordinateY();
+
+        for (int i = 0; i < ship.getShipLength() ; i++) {
+            for (int y = 0; y < HEIGHT; y++) {
+                for (int x = 0; x < WIDTH; x++) {
+                    if (Math.pow(radius, 2) > Math.pow((cordinateX + i - x), 2) + Math.pow((cordinateY - y), 2)) {
+                        if (ocean.squares.get(y).get(x).getIsShip())
+                            return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static void putOneShipOnBoard(Ocean ocean, Ship ship) {
@@ -86,7 +166,9 @@ public class Ocean {
             }
         }
         else {
-            
+            for (int index = 0; index < ship.getShipLength(); index++) {
+                ocean.getSquares().get(ship.getCoordinateY()).set(ship.getCoordinateX() + index, ship.getSqareByIndex(index));
+            }            
         }
     }
 
@@ -99,12 +181,14 @@ public class Ocean {
     @Override
     public String toString(){
         String outputString = "";
+        StringBuilder sB = new StringBuilder(outputString);
         for (int y = 0; y < HEIGHT; y++){
             for (int x = 0; x < WIDTH; x++){
-                outputString += squares.get(y).get(x).toString();    
+                sB.append(squares.get(y).get(x).toString());    
             }
-            outputString += "\n";
+            sB.append("\n");
         }
+        outputString = sB.toString();
         return outputString;
     }
 

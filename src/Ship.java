@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Ship {
 
     private List<Square> squares;
-    private boolean isVertical;
+    private boolean isVertical, isHidden, isSunk;
     private int coordinateX, coordinateY, shipLength;
     private String nameOfShip;
 
@@ -26,7 +26,8 @@ public class Ship {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY; 
         this.shipLength = shipLength;
-
+        this.isHidden = false;  // change on true for all squares of ships when you want print board enemy or other player
+        this.isSunk = false; // change on true when all squares of ship will be hit
     }
 
     public String getNameOfShip() {
@@ -55,6 +56,14 @@ public class Ship {
 
     public int getShipLength() {
         return shipLength;
+    }
+
+    public void setHidden () {
+        this.isHidden = true;
+    }
+
+    public void setSunk() {
+        this.isSunk = true;
     }
 
     public Square getSqareByIndex(int index){
