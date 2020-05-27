@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.lang.*;
 
@@ -52,14 +53,11 @@ public class Ocean {
         boolean isCorrect = false;
 
         while (!isCorrect) {
-            coordinateX = putCoordinate(ocean, ship, "X");
-            //coordinateX = 1;
-            ship.setCoordinateX(coordinateX - 1);
-            coordinateY = putCoordinate(ocean, ship, "Y");
-            //coordinateY = 1;
-            ship.setCoordinateY(coordinateY - 1);
+            coordinateX = inputCoordinateX(ocean, ship, "letter");
+            ship.setCoordinateX(coordinateX);
+            coordinateY = inputCoordinateY(ocean, ship, "number");
+            ship.setCoordinateY(coordinateY);
             isCorrect = checkIfInRadius(ocean, ship);
-            //isCorrect = true;
         }
     }
 
@@ -72,18 +70,40 @@ public class Ocean {
     }
 
 
-    private static int putCoordinate(Ocean ocean, Ship ship, String XY) {
+    private static int inputCoordinateX(Ocean ocean, Ship ship, String numLetter) {
+        List<String> letters = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
+        boolean isCorrect = false;
+        String letter;
+        int coordinate = 0;
+        
+        while (!isCorrect) {
+            ocean.clearScreen();
+            System.out.print(ocean.toString());
+            System.out.println(ship.getNameOfShip() + " (" + ship.getShipLength() + ")");
+            printShipSetup(ship.getIsVertical());
+            System.out.print("Enter the coordinate by letter: ");
+            letter = scanner.nextLine().toUpperCase();
+            //letter = "A";
+            coordinate = letters.indexOf(letter);
+            isCorrect = checkCorrectCoordinate(ocean, ship, coordinate, numLetter);
+        }
+        return coordinate;
+    } 
+
+
+    private static int inputCoordinateY(Ocean ocean, Ship ship, String numLetter) {
         boolean isCorrect = false;
         int coordinate = 0;
         while (!isCorrect) {
             try {
                 ocean.clearScreen();
                 System.out.print(ocean.toString());
-                System.out.println(ship.getNameOfShip());
+                System.out.println(ship.getNameOfShip() + " (" + ship.getShipLength() + ")");
                 printShipSetup(ship.getIsVertical());
-                System.out.print("Enter the coordinate " + XY +": ");
-                coordinate = scanner.nextInt();
-                isCorrect = checkCorrectCoordinate(ocean, ship, coordinate, XY);
+                System.out.print("Enter the coordinate by number: ");
+                coordinate = scanner.nextInt() - 1;
+                //coordinate = 7;
+                isCorrect = checkCorrectCoordinate(ocean, ship, coordinate, numLetter);
             }
             catch (InputMismatchException e) {}
         }
@@ -91,24 +111,24 @@ public class Ocean {
     }
 
 
-    private static boolean checkCorrectCoordinate(Ocean ocean, Ship ship, int coordinate, String XY) {
-        if (!checkIfInRange(ship, coordinate, XY)) 
+    private static boolean checkCorrectCoordinate(Ocean ocean, Ship ship, int coordinate, String numLetter) {
+        if (!checkIfInRange(ship, coordinate, numLetter)) 
             return false;
         else
             return true;
     }
 
 
-    private static boolean checkIfInRange(Ship ship, int coordinate, String XY) {
+    private static boolean checkIfInRange(Ship ship, int coordinate, String numLetter) {
 
-        if (ship.getIsVertical() && XY.equals("Y")) 
-            return (0 < coordinate && coordinate + ship.getShipLength() <= HEIGHT) ? true : false;
-        else if (!ship.getIsVertical() && XY.equals("Y")) 
-            return (0 < coordinate && coordinate <= HEIGHT) ? true : false;
-        else if (ship.getIsVertical() && XY.equals("X")) 
-            return (0 < coordinate && coordinate <= WIDTH) ? true : false;
+        if (ship.getIsVertical() && numLetter.equals("number")) 
+            return (0 <= coordinate && coordinate + ship.getShipLength() <= HEIGHT) ? true : false;
+        else if (!ship.getIsVertical() && numLetter.equals("number")) 
+            return (0 <= coordinate && coordinate < HEIGHT) ? true : false;
+        else if (ship.getIsVertical() && numLetter.equals("letter")) 
+            return (0 <= coordinate && coordinate < WIDTH) ? true : false;
         else
-            return (0 < coordinate && coordinate + ship.getShipLength() <= WIDTH) ? true : false;
+            return (0 <= coordinate && coordinate + ship.getShipLength() <= WIDTH) ? true : false;
     }
 
 
@@ -180,14 +200,31 @@ public class Ocean {
 
     @Override
     public String toString(){
-        String outputString = "";
+        String outputString = "   ";
         StringBuilder sB = new StringBuilder(outputString);
+        sB.append("ABCDEFGHIJ\n");
+        //sB.append("12345678910\n");
+
+        sB.append("  ");
+        for (int i = 0; i < WIDTH + 2; i++)
+            sB.append("#");
+        sB.append("\n");
+
         for (int y = 0; y < HEIGHT; y++){
+            if (y + 1 <10)
+                sB.append(" ");
+            sB.append(y + 1 + "#");
             for (int x = 0; x < WIDTH; x++){
                 sB.append(squares.get(y).get(x).toString());    
             }
-            sB.append("\n");
+            sB.append("#\n");
         }
+
+        sB.append("  ");
+        for (int i = 0; i < WIDTH + 2; i++)
+            sB.append("#");
+        sB.append("\n");
+
         outputString = sB.toString();
         return outputString;
     }
