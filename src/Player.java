@@ -26,7 +26,7 @@ public class Player {
 
     public void playerTurn() {
         printMessage();
-        // get player choice 
+        Coordinates chosenTile = getChoice();
         // check chosen tile for ship 
         // mark tile
 
@@ -41,22 +41,19 @@ public class Player {
 
     // REFACTOR HERE, Create field in ocean object in which stores array of coordinates,
     // import it here
-    public Coordinates getChoice (int coordinate) {
+    public Coordinates getChoice () {
         List<String> letters = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
         List<String> strNumbers = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-
+ 
         System.out.println("Choose letter of field, which you would like to strike.");
         int xCoordinate = getCoordinateFromPlayer(letters);
-        Coordinates.
 
         System.out.println("Choose letter of field, which you would like to strike.");
         int yCoordinate = getCoordinateFromPlayer(strNumbers);
 
-        return (xCoordinate, yCoordinate);
+        Coordinates coordinates = new Coordinates(xCoordinate, yCoordinate);
+        return coordinates;
     }
-
-
-
 
 
     public int getCoordinateFromPlayer (List<String> valuesList) {
