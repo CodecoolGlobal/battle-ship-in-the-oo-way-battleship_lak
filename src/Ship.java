@@ -73,6 +73,11 @@ public class Ship {
     }
 
 
+    public boolean getSunk() {
+        return isSunk;
+    }
+
+
     public void setSunk() {
         this.isSunk = true;
     }

@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.lang.*;
+import java.lang.Math;
 import java.util.Random;
 
 
@@ -203,9 +203,8 @@ public class Ocean {
         return false;
     }
 
-    private static void putOneShipOnBoard(Ocean ocean, Ship ship) {
-         
-        
+
+    private static void putOneShipOnBoard(Ocean ocean, Ship ship) {         
         if (ship.getIsVertical()) {
             for (int index = 0; index < ship.getShipLength(); index++) {
                 ocean.getSquares().get(ship.getCoordinateY() + index).set(ship.getCoordinateX(), ship.getSqareByIndex(index));
@@ -246,7 +245,7 @@ public class Ocean {
                 coordinateX = rn.nextInt(WIDTH - ship.getShipLength());
                 coordinateY = rn.nextInt(HEIGHT);
             }
-            
+
             ship.setCoordinateX(coordinateX);
             ship.setCoordinateY(coordinateY);
             isCorrect = checkIfInRadius(ocean, ship);
@@ -259,12 +258,16 @@ public class Ocean {
     }
 
 
+    public List<Ship> getShips () {
+        return ships;
+    }
+
+
     @Override
     public String toString(){
         String outputString = "   ";
         StringBuilder sB = new StringBuilder(outputString);
         sB.append("ABCDEFGHIJ\n");
-        //sB.append("12345678910\n");
 
         sB.append("  ");
         for (int i = 0; i < WIDTH + 2; i++)
