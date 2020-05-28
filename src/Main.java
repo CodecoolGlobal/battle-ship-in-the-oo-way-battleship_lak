@@ -46,6 +46,7 @@ public class Main {
         //System.out.print("\033[H\033[2J");  
         //System.out.flush();
         
+        System.out.println("WELCOME TO BATTLESHIP GAME\n");
         System.out.println("MENU:");
 
         for (int i = 1; i <= options.length; i++)
