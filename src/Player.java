@@ -24,9 +24,9 @@ public class Player {
     }
 
 
-    public void playerTurn() {
+    public void playerTurn(Ocean enemyOcean) {
         printMessage();
-        Coordinates chosenTile = getChoice();
+        Coordinates chosenSqure = getChoice();
         // check chosen tile for ship 
         // mark tile
 
@@ -59,15 +59,25 @@ public class Player {
     public int getCoordinateFromPlayer (List<String> valuesList) {
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);
-        int coordinate;
+        int coordinate = 0;
 
         while (isRunning == true) {
             String playerInput = scanner.nextLine().toUpperCase();
             if (valuesList.contains(playerInput)) {
                 coordinate = valuesList.indexOf(playerInput);
                 isRunning = false;
+            }
+
         }
 
         scanner.close();
         return coordinate;
+    }
+
+
+    // public void markChosenSquare (Coordinates chosenSqureCoordinates, Ocean targetOcean) {
+    //     Square chosen
+    //     targetOcean.chosenSqure.hit();
+    // }
+
 }

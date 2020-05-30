@@ -276,6 +276,13 @@ public class Ocean {
     }
 
 
+    public Square getSqare (Coordinates sqareCoordinates) {
+        List<Square> row = squares.get(sqareCoordinates.getY());
+        Square chosenSquare = row.get(sqareCoordinates.getX());
+
+        return chosenSquare;
+    }
+
     @Override
     public String toString(){
         String outputString = "   ";
