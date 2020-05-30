@@ -17,8 +17,8 @@ public class Enemy extends Player {
 
     public Coordinates getRandomCoordinates() {
         boolean isRunning = true;
-        int rowIndex;
-        int tileIndex;
+        int rowIndex = 0;
+        int tileIndex = 0;
 
         while(isRunning == true) {
             rowIndex = randomGenerator.nextInt(getPlayerOcean().getSquares().size());

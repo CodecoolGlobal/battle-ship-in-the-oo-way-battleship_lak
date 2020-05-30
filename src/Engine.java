@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 
 public class Engine { 
     private static Scanner scanner = new Scanner(System.in);
+    private static int turnCounter = 0;
     
     public void runGame() {
         int option = 1;
@@ -73,8 +74,13 @@ public class Engine {
         System.out.println("ENEMY OCEAN");
         System.out.print(enemyOcean.toString());
         
-        while(player1.getIsDefeated() == false && enemy.getIsDefeated() == false) {
-            player1.playerTurn(enemyOcean);
+        while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
+            if(turnCounter % 2 == 0){
+                player1.playerTurn(enemyOcean);
+            } else {
+                enemy1.enemyTurn(player1Ocean);
+            }
+            turnCounter++;
         }
     }
 
