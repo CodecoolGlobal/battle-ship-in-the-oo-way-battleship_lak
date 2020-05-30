@@ -30,6 +30,11 @@ public class Player {
     }
 
 
+    public void setIsDefeatedTrue() {
+        isDefeated = true;
+    }
+
+
     public void playerTurn(Ocean enemyOcean) {
         printMessage();
         Coordinates chosenSqureCoordinates = getChoice();
@@ -83,5 +88,22 @@ public class Player {
         chosenSquare.hit();
     }
 
+
+    public boolean checkIfDefeated () {
+        List<Ship> playerShips = playerOcean.getShips();
+        // first all ShipsSunk is set to true, then if exits ship which is not sunk, set it to false
+        boolean allShipsSunk = true;
+
+        for (int index = 0; index < playerShips.size(); index++) {
+            Ship nextShip = playerShips.get(index);
+            nextShip.updateIsSunk();
+
+            if (nextShip.getIsSunk() == false) {
+                allShipsSunk = false;
+            }
+        }
+
+        return allShipsSunk;
+    }
 
 }

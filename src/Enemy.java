@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Enemy extends Player {
-    private Random randomGenerator;
 
     public Enemy(Ocean enemyOcean, int enemyId) {
         super(enemyOcean, enemyId);

@@ -80,7 +80,17 @@ public class Engine {
             } else {
                 enemy1.enemyTurn(player1Ocean);
             }
+
+            player1.checkIfDefeated();
+            enemy1.checkIfDefeated();
+
             turnCounter++;
+        }
+
+        if (player1.getIsDefeated() == true) {
+            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
+        } else if (enemy1.getIsDefeated() == true) {
+            System.out.println("YOU WON IN " + turnCounter + " TURNS");
         }
     }
 

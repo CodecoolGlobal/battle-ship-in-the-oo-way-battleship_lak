@@ -33,6 +33,7 @@ public class Ship {
         return nameOfShip;
     }
 
+
     public boolean getIsVertical() {
         return isVertical;
     }
@@ -73,12 +74,12 @@ public class Ship {
     }
 
 
-    public boolean getSunk() {
+    public boolean getIsSunk() {
         return isSunk;
     }
 
 
-    public void setSunk() {
+    public void setIsSunk() {
         this.isSunk = true;
     }
 
@@ -92,4 +93,17 @@ public class Ship {
         return squares;
     }
 
+
+    public void updateIsSunk () {
+        boolean shouldBeSunk = true;
+        for (int index = 0; index < squares.size(); index++) {
+            Square nextSquare = squares.get(index);
+            if (nextSquare.getIsHit() == false ) {
+                shouldBeSunk = false;
+            }
+        }
+        if (shouldBeSunk == true) {
+            isSunk = true;
+        }
+    }
 }
