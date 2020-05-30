@@ -62,7 +62,11 @@ public class Engine {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
 
-        Player player1 = new Player(player1Ocean, 1);
+        int playerId = 1;
+        int enemyId = 2;
+
+        Player player1 = new Player(player1Ocean, playerId);
+        Enemy enemy1 = new Enemy(enemyOcean, enemyId);
         
         System.out.println("PLAYER 1 OCEAN");
         System.out.print(player1Ocean.toString());
