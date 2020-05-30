@@ -3,15 +3,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player {  
+    private static Scanner scanner = new Scanner(System.in);
     private Ocean playerOcean;
     private int playerId;
+    private boolean isDefeated = false;
 
 
     public Player(Ocean playerOcean, int playerId) {
         this.playerOcean = playerOcean;
         this.playerId = playerId;
     }
-
 
 
     public Ocean getPlayerOcean() {
@@ -24,13 +25,15 @@ public class Player {
     }
 
 
+    public boolean getIsDefeated() {
+        return isDefeated;
+    }
+
+
     public void playerTurn(Ocean enemyOcean) {
         printMessage();
-        Coordinates chosenSqure = getChoice();
-        // check chosen tile for ship 
-        // mark tile
-
-
+        Coordinates chosenSqureCoordinates = getChoice();
+        markChosenSquare(chosenSqureCoordinates, enemyOcean);
     }
 
 
@@ -58,7 +61,7 @@ public class Player {
 
     public int getCoordinateFromPlayer (List<String> valuesList) {
         boolean isRunning = true;
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         int coordinate = 0;
 
         while (isRunning == true) {
@@ -70,14 +73,15 @@ public class Player {
 
         }
 
-        scanner.close();
+        // scanner.close();
         return coordinate;
     }
 
 
-    // public void markChosenSquare (Coordinates chosenSqureCoordinates, Ocean targetOcean) {
-    //     Square chosen
-    //     targetOcean.chosenSqure.hit();
-    // }
+    public void markChosenSquare (Coordinates chosenSqureCoordinates, Ocean targetOcean) {
+        Square chosenSquare = targetOcean.getSqare(chosenSqureCoordinates);
+        chosenSquare.hit();
+    }
+
 
 }

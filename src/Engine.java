@@ -61,10 +61,17 @@ public class Engine {
     private static void fightPvC() {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
+
+        Player player1 = new Player(player1Ocean, 1);
         
+        System.out.println("PLAYER 1 OCEAN");
         System.out.print(player1Ocean.toString());
+        System.out.println("ENEMY OCEAN");
         System.out.print(enemyOcean.toString());
-        //Add fight
+        
+        while(player1.getIsDefeated() == false && enemy.getIsDefeated() == false) {
+            player1.playerTurn(enemyOcean);
+        }
     }
 
 
