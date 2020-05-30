@@ -130,7 +130,9 @@ public class Engine {
         Ship Submarine = new Ship("Submarine", 3, true, 0, 0);
         Ship Destroyer = new Ship("Destroyer", 2, true, 0, 0);
 
-        List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
+        // List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
+        List<Ship> ships = Arrays.asList(Destroyer);
+
         return ships;
     }
 }   

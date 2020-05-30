@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Enemy extends Player {
     private Random randomGenerator;
@@ -21,10 +23,13 @@ public class Enemy extends Player {
         int tileIndex = 0;
 
         while(isRunning == true) {
-            rowIndex = randomGenerator.nextInt(getPlayerOcean().getSquares().size());
-            List<Square> randomRow = getPlayerOcean().getSquares().get(rowIndex);
+            List<List<Square>> targetMatrix = new ArrayList<List<Square>>();
+            targetMatrix = getPlayerOcean().getSquares();
+            rowIndex = ThreadLocalRandom.current().nextInt(0, targetMatrix.size());
+            // rowIndex = randomGenerator.nextInt(targetMatrix.size());
+            List<Square> randomRow = targetMatrix.get(rowIndex);
     
-            tileIndex = randomGenerator.nextInt(randomRow.size());
+            tileIndex = ThreadLocalRandom.current().nextInt(0, randomRow.size());
             Square randomSquare = randomRow.get(tileIndex);
 
             if(randomSquare.getIsHit() == false) {
