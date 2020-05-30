@@ -10,8 +10,9 @@ public class Engine {
     
     public void runGame() {
         int option = 1;
+        boolean isRunning = true;
 
-        while (option != 0) {
+        while (option != 0 && isRunning == true) {
 
             try {
                 scanner = new Scanner(System.in);
@@ -22,6 +23,7 @@ public class Engine {
                 switch (option) {
                     case 1:
                         fightPvC();
+                        isRunning = false;
                         break;
                     case 2:
                         fightPvP();

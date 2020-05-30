@@ -89,7 +89,7 @@ public class Player {
     }
 
 
-    public boolean checkIfDefeated () {
+    public void checkIfDefeated () {
         List<Ship> playerShips = playerOcean.getShips();
         // first all ShipsSunk is set to true, then if exits ship which is not sunk, set it to false
         boolean allShipsSunk = true;
@@ -103,7 +103,9 @@ public class Player {
             }
         }
 
-        return allShipsSunk;
+        if (allShipsSunk == true) { 
+            setIsDefeatedTrue();
+        }
     }
 
 }
