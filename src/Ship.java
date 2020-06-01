@@ -102,8 +102,9 @@ public class Ship {
                 shouldBeSunk = false;
             }
         }
-        if (shouldBeSunk == true) {
+        if (shouldBeSunk == true && isSunk == false ) {
             isSunk = true;
+            System.out.println("Ship sunk!");
         }
     }
 }
