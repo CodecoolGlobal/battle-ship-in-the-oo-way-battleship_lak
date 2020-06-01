@@ -12,16 +12,16 @@ public class Square {
 
 
     public void hit() {
-        isHit = true;
+        this.isHit = true;
     }
 
 
     public void changeToAShip() {
-        isShip = true;
+        this.isShip = true;
     }
 
 
-    public boolean getIsHit(){
+    public boolean getIsHit() {
         return isHit;
     }
 
@@ -31,7 +31,7 @@ public class Square {
     }
 
 
-    public void setHidden () {
+    public void setHidden() {
         this.isHidden = true;
     }
 
@@ -46,6 +46,5 @@ public class Square {
             return "O";
         else
             return " ";
-        //return isHit ? SYMBOL : " ";
     }
 }

@@ -91,8 +91,6 @@ public class Ocean {
     }
 
     private static int inputCoordinateX(Ocean ocean, Ship ship, String numLetter) {
-        // List<String> letters = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H",
-        // "I", "J");
         boolean isCorrect = false;
         String letter;
         int coordinate = 0;
@@ -104,7 +102,6 @@ public class Ocean {
             printShipSetup(ship.getIsVertical());
             System.out.print("Enter the coordinate by letter: ");
             letter = scanner.nextLine().toUpperCase();
-            // letter = "A";
             coordinate = ocean.getLetters().indexOf(letter);
             isCorrect = checkCorrectCoordinate(ocean, ship, coordinate, numLetter);
         }
@@ -112,8 +109,6 @@ public class Ocean {
     }
 
     private static int inputCoordinateY(Ocean ocean, Ship ship, String numLetter) {
-        // List<String> strNumbers = Arrays.asList("1", "2", "3", "4", "5", "6", "7",
-        // "8", "9", "10");
         boolean isCorrect = false;
         String strNumber;
         int coordinate = 0;
@@ -125,7 +120,6 @@ public class Ocean {
             printShipSetup(ship.getIsVertical());
             System.out.print("Enter the coordinate by number: ");
             strNumber = scanner.nextLine();
-            // strNumber = "7";
             coordinate = ocean.getStrNumbers().indexOf(strNumber);
             isCorrect = checkCorrectCoordinate(ocean, ship, coordinate, numLetter);
         }

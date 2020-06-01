@@ -94,7 +94,7 @@ public class Ship {
     }
 
 
-    public void updateIsSunk () {
+    public void updateIsSunk() {
         boolean shouldBeSunk = true;
         for (int index = 0; index < squares.size(); index++) {
             Square nextSquare = squares.get(index);
