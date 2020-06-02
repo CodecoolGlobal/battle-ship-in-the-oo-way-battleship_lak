@@ -6,13 +6,11 @@ import java.util.InputMismatchException;
 
 public class Engine { 
     private static Scanner scanner = new Scanner(System.in);
-    private static int turnCounter = 0;
     
     public void runGame() {
         int option = 1;
-        boolean isRunning = true;
 
-        while (option != 0 && isRunning == true) {
+        while (option != 0) {
 
             try {
                 scanner = new Scanner(System.in);
@@ -23,7 +21,6 @@ public class Engine {
                 switch (option) {
                     case 1:
                         fightPvC();
-                        isRunning = false;
                         break;
                     case 2:
                         fightPvP();
@@ -48,8 +45,8 @@ public class Engine {
         
         String options[] = {"Single player", "Multiplayer", "Simulation"};
         
-        //System.out.print("\033[H\033[2J");  
-        //System.out.flush();
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();
         
         System.out.println("WELCOME TO BATTLESHIP GAME\n");
         System.out.println("MENU:");
@@ -64,44 +61,21 @@ public class Engine {
     private static void fightPvC() {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
-
-        int playerId = 1;
-        int enemyId = 2;
-
-        Player player1 = new Player(player1Ocean, playerId);
-        Enemy enemy1 = new Enemy(enemyOcean, enemyId);
         
-        System.out.println("PLAYER 1 OCEAN");
-        System.out.print(player1Ocean.toString());
-        System.out.println("ENEMY OCEAN");
-        System.out.print(enemyOcean.toString());
+        //System.out.print(player1Ocean.toString());
+        //System.out.print(enemyOcean.toString());
         
-        while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
-            if(turnCounter % 2 == 0){
-                player1.playerTurn(enemyOcean);
-            } else {
-                enemy1.enemyTurn(player1Ocean);
-            }
-
-            player1.checkIfDefeated();
-            enemy1.checkIfDefeated();
-
-            turnCounter++;
-        }
-
-        if (player1.getIsDefeated() == true) {
-            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
-        } else if (enemy1.getIsDefeated() == true) {
-            System.out.println("YOU WON IN " + turnCounter + " TURNS");
-        }
+        //Add fight
     }
 
 
     private static void fightPvP() {
         Ocean player1Ocean = getPlayerOcean(); 
         Ocean player2Ocean = getPlayerOcean();
-        System.out.print(player1Ocean.toString());
-        System.out.print(player2Ocean.toString());
+        
+        //System.out.print(player1Ocean.toString());
+        //System.out.print(player2Ocean.toString());
+        
         //Add fight
     }
 
@@ -110,8 +84,8 @@ public class Engine {
         Ocean enemy1Ocean = getEnemyOcean();
         Ocean enemy2Ocean = getEnemyOcean();
         
-        System.out.print(enemy1Ocean.toString());
-        System.out.print(enemy2Ocean.toString());
+        //System.out.print(enemy1Ocean.toString());
+        //System.out.print(enemy2Ocean.toString());
        
         //Add fight
     }
@@ -143,8 +117,6 @@ public class Engine {
         Ship Destroyer = new Ship("Destroyer", 2, true, 0, 0);
 
         List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
-        // List<Ship> ships = Arrays.asList(Destroyer);
-
         return ships;
     }
 }   

@@ -60,17 +60,9 @@ __Instance methods__
 
   Prints information of ship setup
 
-* `inputCoordinateX(Ocean ocean, Ship ship, String numLetter)`
+* `inputCoordinates(Ocean ocean, Ship ship)`
 
-  Gets coordinate X depending to input from user. Return Integer
-
-* `inputCoordinateY(Ocean ocean, Ship ship, String numLetter)`
-
-  Gets coordinate Y depending to input from user. Return Integer
-
-* `checkCorrectCoordinate(Ocean ocean, Ship ship, int coordinate, String numLetter)`
-
-  Checks if coordinates is correct. Return boolean value
+  Gets coordinate X and Y depending to input from user
 
 * `checkIfInRange(Ship ship, int coordinate, String numLetter)`
 
