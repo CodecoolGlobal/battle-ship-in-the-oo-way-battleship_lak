@@ -62,7 +62,8 @@ public class Engine {
         enemyOcean.hideBoard();
 
         GameBoard boardPVC = new GameBoard(player1Ocean, enemyOcean);
-        //System.out.print(boardPVC.toString());
+        DisplayBoard displayBoardPVC = new DisplayBoard(boardPVC.toString());
+        displayBoardPVC.displayBoard();
         
         
         //Add fight
@@ -74,9 +75,13 @@ public class Engine {
         Ocean player2Ocean = getPlayerOcean();
         
         GameBoard board1PVP = new GameBoard(player1Ocean, player2Ocean);
-        //System.out.print(player1Ocean.toString());
-        //System.out.print(player2Ocean.toString());
+        GameBoard board2PVP = new GameBoard(player2Ocean, player1Ocean);
         
+        DisplayBoard displayBoard1PVP = new DisplayBoard(board1PVP.toString());
+        DisplayBoard displayBoard2PVP = new DisplayBoard(board2PVP.toString());
+        displayBoard1PVP.displayBoard();
+        displayBoard2PVP.displayBoard();
+
         //Add fight
     }
 
@@ -86,11 +91,9 @@ public class Engine {
         Ocean enemy2Ocean = getEnemyOcean();
 
         GameBoard boardCVC = new GameBoard(enemy1Ocean, enemy2Ocean);
-        //System.out.print(boardCVC.toString());
-        
-        //System.out.print(enemy1Ocean.toString());
-        //System.out.print(enemy2Ocean.toString());
-       
+        DisplayBoard displayBoardCVC = new DisplayBoard(boardCVC.toString());
+        displayBoardCVC.displayBoard();
+    
         //Add fight
     }
 

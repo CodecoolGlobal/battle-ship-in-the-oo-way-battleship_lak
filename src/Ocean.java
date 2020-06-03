@@ -63,12 +63,14 @@ public class Ocean {
 
 
     private static void setUpTheShip(Ocean ocean, Ship ship) {
+        DisplayBoard displayOcean = new DisplayBoard(ocean.toString());
+        
         boolean isCorrect = false;
         String letter;
 
         while (!isCorrect) {
             ocean.clearScreen();
-            System.out.print(ocean.toString());
+            displayOcean.displayBoard();
             System.out.println(ship.getNameOfShip() + " (" + ship.getShipLength() + ")");
             System.out.println("Enter 'V' if you want vertical layout of ship or 'H'");
             System.out.print("if you want horizontal layout: ");
@@ -95,6 +97,8 @@ public class Ocean {
 
 
     private static void inputCoordinates(Ocean ocean, Ship ship) {
+        DisplayBoard displayOcean = new DisplayBoard(ocean.toString());
+        
         boolean isCorrect = false;
         boolean correctX, correctY;
         String strCoordinates;
@@ -103,7 +107,7 @@ public class Ocean {
 
         while (!isCorrect) {
             ocean.clearScreen();
-            System.out.print(ocean.toString());
+            displayOcean.displayBoard();
             System.out.println(ship.getNameOfShip() + " (" + ship.getShipLength() + ")");
             printShipSetup(ship.getIsVertical());
             System.out.print("Enter the coordinate (e.g. D4): ");
@@ -270,18 +274,18 @@ public class Ocean {
 
     @Override
     public String toString(){
-        String outputString = "   ";
+        String outputString = "///";
         StringBuilder sB = new StringBuilder(outputString);
         sB.append("ABCDEFGHIJ\n");
 
-        sB.append("  ");
+        sB.append("//");
         for (int i = 0; i < WIDTH + 2; i++)
             sB.append("%");
         sB.append("\n");
 
         for (int y = 0; y < HEIGHT; y++){
             if (y + 1 <10)
-                sB.append(" ");
+                sB.append("/");
             sB.append(y + 1 + "%");
             for (int x = 0; x < WIDTH; x++){
                 sB.append(squares.get(y).get(x).toString());    
@@ -289,7 +293,7 @@ public class Ocean {
             sB.append("%\n");
         }
 
-        sB.append("  ");
+        sB.append("//");
         for (int i = 0; i < WIDTH + 2; i++)
             sB.append("%");
         sB.append("\n");
