@@ -239,6 +239,15 @@ public class Ocean {
     }
 
 
+    public void hideBoard() {
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
+                this.squares.get(y).get(x).setHidden();
+            }
+        }
+    }
+
+
     public List<List<Square>> getSquares() {
         return squares;
     }
@@ -267,22 +276,22 @@ public class Ocean {
 
         sB.append("  ");
         for (int i = 0; i < WIDTH + 2; i++)
-            sB.append("#");
+            sB.append("%");
         sB.append("\n");
 
         for (int y = 0; y < HEIGHT; y++){
             if (y + 1 <10)
                 sB.append(" ");
-            sB.append(y + 1 + "#");
+            sB.append(y + 1 + "%");
             for (int x = 0; x < WIDTH; x++){
                 sB.append(squares.get(y).get(x).toString());    
             }
-            sB.append("#\n");
+            sB.append("%\n");
         }
 
         sB.append("  ");
         for (int i = 0; i < WIDTH + 2; i++)
-            sB.append("#");
+            sB.append("%");
         sB.append("\n");
 
         outputString = sB.toString();

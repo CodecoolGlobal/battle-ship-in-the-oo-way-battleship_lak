@@ -13,8 +13,6 @@ public class Engine {
         while (option != 0) {
 
             try {
-                scanner = new Scanner(System.in);
-
                 printMenu();
                 option = scanner.nextInt();
 
@@ -45,8 +43,8 @@ public class Engine {
         
         String options[] = {"Single player", "Multiplayer", "Simulation"};
         
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();
+        //System.out.print("\033[H\033[2J");  
+        //System.out.flush();
         
         System.out.println("WELCOME TO BATTLESHIP GAME\n");
         System.out.println("MENU:");
@@ -61,9 +59,11 @@ public class Engine {
     private static void fightPvC() {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
+        enemyOcean.hideBoard();
+
+        GameBoard boardPVC = new GameBoard(player1Ocean, enemyOcean);
+        //System.out.print(boardPVC.toString());
         
-        //System.out.print(player1Ocean.toString());
-        //System.out.print(enemyOcean.toString());
         
         //Add fight
     }
@@ -73,6 +73,7 @@ public class Engine {
         Ocean player1Ocean = getPlayerOcean(); 
         Ocean player2Ocean = getPlayerOcean();
         
+        GameBoard board1PVP = new GameBoard(player1Ocean, player2Ocean);
         //System.out.print(player1Ocean.toString());
         //System.out.print(player2Ocean.toString());
         
@@ -83,6 +84,9 @@ public class Engine {
     private static void fightCvC() {
         Ocean enemy1Ocean = getEnemyOcean();
         Ocean enemy2Ocean = getEnemyOcean();
+
+        GameBoard boardCVC = new GameBoard(enemy1Ocean, enemy2Ocean);
+        //System.out.print(boardCVC.toString());
         
         //System.out.print(enemy1Ocean.toString());
         //System.out.print(enemy2Ocean.toString());
