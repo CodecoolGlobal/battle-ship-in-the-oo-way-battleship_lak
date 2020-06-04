@@ -6,11 +6,13 @@ import java.util.InputMismatchException;
 
 public class Engine { 
     private static Scanner scanner = new Scanner(System.in);
+    private static int turnCounter = 0;
     
     public void runGame() {
         int option = 1;
+        boolean isRunning = true;
 
-        while (option != 0) {
+        while (option != 0 && isRunning == true) {
 
             try {
                 printMenu();
@@ -19,12 +21,15 @@ public class Engine {
                 switch (option) {
                     case 1:
                         fightPvC();
+                        isRunning = false;
                         break;
                     case 2:
                         fightPvP();
+                        isRunning = false;
                         break;
                     case 3:
                         fightCvC();
+                        isRunning = false;
                         break;
                     case 0:
                         System.out.println("Bye bye");
@@ -67,7 +72,40 @@ public class Engine {
         displayBoardPVC.displayBoard();
         
         //Add fight
+        int playerId = 1;
+        int enemyId = 2;
+
+        Player player1 = new Player(player1Ocean, playerId);
+        Enemy enemy1 = new Enemy(enemyOcean, enemyId);
+
+        while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
+            if(turnCounter % 2 == 0){
+                player1.playerTurn(enemyOcean);
+                displayBoardPVC = new DisplayBoard(boardPVC.toString());
+                displayBoardPVC.displayBoard();
+
+            } else {
+                enemy1.enemyTurn(player1Ocean);
+                displayBoardPVC = new DisplayBoard(boardPVC.toString());
+                displayBoardPVC.displayBoard();
+
+            }
+
+            player1.checkIfDefeated();
+            enemy1.checkIfDefeated();
+
+            turnCounter++;
+        }
+
+        if (player1.getIsDefeated() == true) {
+            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
+        } else if (enemy1.getIsDefeated() == true) {
+            System.out.println("YOU WON IN " + turnCounter + " TURNS");
+        }
+
     }
+
+
 
 
     private static void fightPvP() {
@@ -131,7 +169,9 @@ public class Engine {
         Ship Submarine = new Ship("Submarine", 3, true, 0, 0);
         Ship Destroyer = new Ship("Destroyer", 2, true, 0, 0);
 
-        List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
+        // List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
+        List<Ship> ships = Arrays.asList(Destroyer);
+
         return ships;
     }
 }   
