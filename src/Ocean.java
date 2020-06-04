@@ -317,4 +317,13 @@ public class Ocean {
         outputString = sB.toString();
         return outputString;
     }
+
+
+	public Square getSqare(Coordinates chosenSqureCoordinates) {
+
+        List<Square> chosenRow = squares.get(chosenSqureCoordinates.getY());
+        Square chosenSquare = chosenRow.get(chosenSqureCoordinates.getX());
+
+		return chosenSquare;
+	}
 }
