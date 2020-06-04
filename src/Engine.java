@@ -72,11 +72,26 @@ public class Engine {
         displayBoardPVC.displayBoard();
         
         //Add fight
+
         int playerId = 1;
         int enemyId = 2;
 
         Player player1 = new Player(player1Ocean, playerId);
         Enemy enemy1 = new Enemy(enemyOcean, enemyId);
+
+        gameLoop(player1, enemy1, displayBoardPVC, boardPVC);
+
+        if (player1.getIsDefeated() == true) {
+            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
+        } else if (enemy1.getIsDefeated() == true) {
+            System.out.println("YOU WON IN " + turnCounter + " TURNS");
+        }
+
+    }
+
+    private static void gameLoop(Player player1,Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
+        Ocean player1Ocean = player1.getPlayerOcean();
+        Ocean enemyOcean = enemy1.getPlayerOcean();
 
         while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
@@ -96,16 +111,34 @@ public class Engine {
 
             turnCounter++;
         }
-
-        if (player1.getIsDefeated() == true) {
-            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
-        } else if (enemy1.getIsDefeated() == true) {
-            System.out.println("YOU WON IN " + turnCounter + " TURNS");
-        }
-
+        
     }
 
 
+    private static void gameLoop(Player player1,Player player2, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
+        Ocean player1Ocean = player1.getPlayerOcean();
+        Ocean player2Ocean = player2.getPlayerOcean();
+
+        while(player1.getIsDefeated() == false && player2.getIsDefeated() == false) {
+            if(turnCounter % 2 == 0){
+                player1.playerTurn(player2Ocean);
+                displayBoardPVC = new DisplayBoard(boardPVC.toString());
+                displayBoardPVC.displayBoard();
+
+            } else {
+                player2.playerTurn(player1Ocean);
+                displayBoardPVC = new DisplayBoard(boardPVC.toString());
+                displayBoardPVC.displayBoard();
+
+            }
+
+            player1.checkIfDefeated();
+            player2.checkIfDefeated();
+
+            turnCounter++;
+        }
+        
+    }
 
 
     private static void fightPvP() {
