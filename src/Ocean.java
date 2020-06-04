@@ -252,6 +252,22 @@ public class Ocean {
     }
 
 
+    public Ocean deepCopyOcean(List<Ship> hiddenShips, List<Ship> ships) {
+        for (int i = 0; i < ships.size(); i++) {
+            hiddenShips.get(i).setCoordinateX(ships.get(i).getCoordinateX());
+            hiddenShips.get(i).setCoordinateY(ships.get(i).getCoordinateY());
+        }
+        
+        Ocean copyOcean = new Ocean(hiddenShips);
+        
+        for (int index = 0; index< ships.size(); index++)
+            putOneShipOnBoard(copyOcean, hiddenShips.get(index));
+        
+        copyOcean.hideBoard();
+        return copyOcean;
+    }
+
+
     public List<List<Square>> getSquares() {
         return squares;
     }

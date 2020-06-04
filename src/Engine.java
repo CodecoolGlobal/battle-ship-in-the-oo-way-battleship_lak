@@ -61,10 +61,10 @@ public class Engine {
         Ocean enemyOcean = getEnemyOcean();
         enemyOcean.hideBoard();
 
-        GameBoard boardPVC = new GameBoard(player1Ocean, enemyOcean);
+        GameBoard boardPVC = new GameBoard(enemyOcean, player1Ocean);
         DisplayBoard displayBoardPVC = new DisplayBoard(boardPVC.toString());
-        displayBoardPVC.displayBoard();
         
+        displayBoardPVC.displayBoard();
         
         //Add fight
     }
@@ -73,12 +73,19 @@ public class Engine {
     private static void fightPvP() {
         Ocean player1Ocean = getPlayerOcean(); 
         Ocean player2Ocean = getPlayerOcean();
-        
-        GameBoard board1PVP = new GameBoard(player1Ocean, player2Ocean);
-        GameBoard board2PVP = new GameBoard(player2Ocean, player1Ocean);
+
+        List<Ship> hiddenPlayer1Ships = crateShips();
+        List<Ship> hiddenPlayer2Ships = crateShips();
+
+        Ocean hiddenPlayer1Ocean = player1Ocean.deepCopyOcean(hiddenPlayer1Ships, player1Ocean.getShips());
+        Ocean hiddenPlayer2Ocean = player2Ocean.deepCopyOcean(hiddenPlayer2Ships, player2Ocean.getShips());
+
+        GameBoard board1PVP = new GameBoard(hiddenPlayer2Ocean, player1Ocean);
+        GameBoard board2PVP = new GameBoard(hiddenPlayer1Ocean, player2Ocean);
         
         DisplayBoard displayBoard1PVP = new DisplayBoard(board1PVP.toString());
         DisplayBoard displayBoard2PVP = new DisplayBoard(board2PVP.toString());
+        
         displayBoard1PVP.displayBoard();
         displayBoard2PVP.displayBoard();
 
@@ -89,8 +96,9 @@ public class Engine {
     private static void fightCvC() {
         Ocean enemy1Ocean = getEnemyOcean();
         Ocean enemy2Ocean = getEnemyOcean();
-
+        
         GameBoard boardCVC = new GameBoard(enemy1Ocean, enemy2Ocean);
+        
         DisplayBoard displayBoardCVC = new DisplayBoard(boardCVC.toString());
         displayBoardCVC.displayBoard();
     

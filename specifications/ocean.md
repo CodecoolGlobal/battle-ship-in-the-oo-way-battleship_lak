@@ -92,6 +92,10 @@ __Instance methods__
 
   Generates random layout by all ships on ocean
 
+* `deepCopyOcean(List<Ship> hiddenShips, List<Ship> ships)`
+  
+  Makes a hidden ocean by copy cordinates from ships list to hidden ships list. Return Ocean object
+
 * `getSquares()`
 
   Getter for the * sqaures * list
