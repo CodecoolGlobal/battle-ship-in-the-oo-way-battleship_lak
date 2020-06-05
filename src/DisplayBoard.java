@@ -29,6 +29,12 @@ public class DisplayBoard {
                 case '$':
                     System.out.print("\u001B[44m" + "\u001B[37m" + " $" + "\u001B[0m");
                     break;
+                case 'X':
+                    System.out.print("\u001B[44m" + "\u001B[32m" + " $" + "\u001B[0m");
+                    break;
+                case '&':
+                    System.out.print("\u001B[44m" + "\u001B[31m" + " $" + "\u001B[0m");
+                    break;
                 case ' ':
                     System.out.print("\u001B[44m" + "  " + "\u001B[0m");
                     break;

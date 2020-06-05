@@ -65,7 +65,7 @@ public class Engine {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
         enemyOcean.hideBoard();
-
+        
         GameBoard boardPVC = new GameBoard(enemyOcean, player1Ocean);
         DisplayBoard displayBoardPVC = new DisplayBoard(boardPVC.toString());
         

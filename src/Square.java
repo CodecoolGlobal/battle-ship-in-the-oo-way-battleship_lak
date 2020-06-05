@@ -43,7 +43,7 @@ public class Square {
         else if (isShip && !isHidden)
             return SHIP;
         else if (isHit)
-            return "O";
+            return "&";
         else
             return " ";
     }
