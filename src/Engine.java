@@ -95,7 +95,7 @@ public class Engine {
         Ocean player1Ocean = player1.getPlayerOcean();
         Ocean enemyOcean = enemy1.getPlayerOcean();
 
-        
+
         while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
                 player1.playerTurn(enemyOcean);
@@ -127,17 +127,16 @@ public class Engine {
 
         while(player1.getIsDefeated() == false && player2.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
-                // clearScreen();
                 player1.playerTurn(player2Ocean);
                 displayBoard1PVP = new DisplayBoard(board1PVP.toString());
                 displayBoard1PVP.displayBoard();
+                waitUntilEnter();
 
             } else {
-                clearScreen();
                 player2.playerTurn(player1Ocean);
                 displayBoard2PVP = new DisplayBoard(board2PVP.toString());
                 displayBoard2PVP.displayBoard();
-
+                waitUntilEnter();
             }
 
             player1.checkIfDefeated();
@@ -150,11 +149,18 @@ public class Engine {
 
 
     private static void fightPvP() {
-        Ocean player1Ocean = getPlayerOcean(); 
-        Ocean player2Ocean = getPlayerOcean();
 
+        System.out.println("Player 1 set ship positions");
+        waitUntilEnter();
+        Ocean player1Ocean = getPlayerOcean();
         List<Ship> hiddenPlayer1Ships = crateShips();
+        clearScreen();
+
+        System.out.println(("Player 2 set ship positions"));
+        waitUntilEnter();
+        Ocean player2Ocean = getPlayerOcean();
         List<Ship> hiddenPlayer2Ships = crateShips();
+        clearScreen();
 
         Ocean hiddenPlayer1Ocean = player1Ocean.deepCopyOcean(hiddenPlayer1Ships, player1Ocean.getShips());
         Ocean hiddenPlayer2Ocean = player2Ocean.deepCopyOcean(hiddenPlayer2Ships, player2Ocean.getShips());
@@ -165,11 +171,11 @@ public class Engine {
         DisplayBoard displayBoard1PVP = new DisplayBoard(board1PVP.toString());
         DisplayBoard displayBoard2PVP = new DisplayBoard(board2PVP.toString());
         
-        displayBoard1PVP.displayBoard();
-        displayBoard2PVP.displayBoard();
+        // dont display because you can see other player 
+        // displayBoard1PVP.displayBoard();
+        // displayBoard2PVP.displayBoard();
 
-        //Add fight
-
+        //fight
         int playerId = 1;
         int player2Id = 2;
 
@@ -179,9 +185,9 @@ public class Engine {
         gameLoopPvP(player1, player2, displayBoard1PVP, board1PVP, displayBoard2PVP, board2PVP);
 
         if (player1.getIsDefeated() == true) {
-            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
+            System.out.println("PLAYER 1 WON IN " + turnCounter + " TURNS");
         } else if (player2.getIsDefeated() == true) {
-            System.out.println("YOU WON IN " + turnCounter + " TURNS");
+            System.out.println("PLAYER 2 WON IN " + turnCounter + " TURNS");
         }
     }
 
@@ -238,8 +244,8 @@ public class Engine {
         Ship Submarine = new Ship("Submarine", 3, true, 0, 0);
         Ship Destroyer = new Ship("Destroyer", 2, true, 0, 0);
 
-        // List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
-        List<Ship> ships = Arrays.asList(Destroyer);
+        List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
+        // List<Ship> ships = Arrays.asList(Destroyer);
 
         return ships;
     }
