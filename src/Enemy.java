@@ -9,7 +9,7 @@ public class Enemy extends Player {
     }
 
     public void enemyTurn(Ocean playerOcean) {
-        printMessage();
+        // printMessage();
         Coordinates chosenSqureCoordinates = getRandomCoordinates();
         markChosenSquare(chosenSqureCoordinates, playerOcean);
     }

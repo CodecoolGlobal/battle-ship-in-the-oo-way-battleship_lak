@@ -95,15 +95,16 @@ public class Engine {
         Ocean player1Ocean = player1.getPlayerOcean();
         Ocean enemyOcean = enemy1.getPlayerOcean();
 
+        
         while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
                 player1.playerTurn(enemyOcean);
-                // clearScreen();
+                clearScreen();
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
                 waitUntilEnter();
             } else {
-                // clearScreen();
+                clearScreen();
                 enemy1.enemyTurn(player1Ocean);
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
