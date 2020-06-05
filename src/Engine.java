@@ -69,6 +69,7 @@ public class Engine {
         GameBoard boardPVC = new GameBoard(enemyOcean, player1Ocean);
         DisplayBoard displayBoardPVC = new DisplayBoard(boardPVC.toString());
         
+        clearScreen();
         displayBoardPVC.displayBoard();
         
         //Add fight
@@ -79,7 +80,7 @@ public class Engine {
         Player player1 = new Player(player1Ocean, playerId);
         Enemy enemy1 = new Enemy(enemyOcean, enemyId);
 
-        gameLoop(player1, enemy1, displayBoardPVC, boardPVC);
+        gameLoopPvC(player1, enemy1, displayBoardPVC, boardPVC);
 
         if (player1.getIsDefeated() == true) {
             System.out.println("YOU LOST IN " + turnCounter + " TURNS");
@@ -89,17 +90,20 @@ public class Engine {
 
     }
 
-    private static void gameLoop(Player player1,Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
+
+    private static void gameLoopPvC(Player player1,Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
         Ocean player1Ocean = player1.getPlayerOcean();
         Ocean enemyOcean = enemy1.getPlayerOcean();
 
         while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
                 player1.playerTurn(enemyOcean);
+                // clearScreen();
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
-
+                waitUntilEnter();
             } else {
+                // clearScreen();
                 enemy1.enemyTurn(player1Ocean);
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
@@ -111,24 +115,27 @@ public class Engine {
 
             turnCounter++;
         }
-        
     }
 
 
-    private static void gameLoop(Player player1,Player player2, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
+    private static void gameLoopPvP(Player player1,Player player2, DisplayBoard displayBoard1PVP, GameBoard board1PVP,
+                                    DisplayBoard displayBoard2PVP, GameBoard board2PVP) {
+
         Ocean player1Ocean = player1.getPlayerOcean();
         Ocean player2Ocean = player2.getPlayerOcean();
 
         while(player1.getIsDefeated() == false && player2.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
+                // clearScreen();
                 player1.playerTurn(player2Ocean);
-                displayBoardPVC = new DisplayBoard(boardPVC.toString());
-                displayBoardPVC.displayBoard();
+                displayBoard1PVP = new DisplayBoard(board1PVP.toString());
+                displayBoard1PVP.displayBoard();
 
             } else {
+                clearScreen();
                 player2.playerTurn(player1Ocean);
-                displayBoardPVC = new DisplayBoard(boardPVC.toString());
-                displayBoardPVC.displayBoard();
+                displayBoard2PVP = new DisplayBoard(board2PVP.toString());
+                displayBoard2PVP.displayBoard();
 
             }
 
@@ -161,6 +168,20 @@ public class Engine {
         displayBoard2PVP.displayBoard();
 
         //Add fight
+
+        int playerId = 1;
+        int player2Id = 2;
+
+        Player player1 = new Player(player1Ocean, playerId);
+        Player player2 = new Enemy(player2Ocean, player2Id);
+
+        gameLoopPvP(player1, player2, displayBoard1PVP, board1PVP, displayBoard2PVP, board2PVP);
+
+        if (player1.getIsDefeated() == true) {
+            System.out.println("YOU LOST IN " + turnCounter + " TURNS");
+        } else if (player2.getIsDefeated() == true) {
+            System.out.println("YOU WON IN " + turnCounter + " TURNS");
+        }
     }
 
 
@@ -192,6 +213,20 @@ public class Engine {
 
         enemyOcean.generateEnemyOcean(enemyShips, enemyOcean);
         return enemyOcean;
+    }
+
+
+    public static void clearScreen() {  
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+    }  
+
+
+    private static void waitUntilEnter() {
+        System.out.println("Press Enter to continue");
+        try {
+            System.in.read();
+        } catch (Exception e) {};
     }
 
 
