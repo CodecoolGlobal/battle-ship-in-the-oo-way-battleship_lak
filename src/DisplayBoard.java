@@ -27,7 +27,7 @@ public class DisplayBoard {
                     System.out.print("  ");
                     break;
                 case '$':
-                    System.out.print("\u001B[42m" + "  " + "\u001B[0m");
+                    System.out.print("\u001B[44m" + "\u001B[37m" + " $" + "\u001B[0m");
                     break;
                 case ' ':
                     System.out.print("\u001B[44m" + "  " + "\u001B[0m");
@@ -38,11 +38,8 @@ public class DisplayBoard {
                 case '%':
                     System.out.print("\u001B[47m" + "  " + "\u001B[0m");
                     break;
-                case '0':
-                    System.out.print(" 0"); // Krzysiek. I changed "10" on " 0" because it printed "110"
-                    break;
-                case ';':
-                    System.out.print("\n");
+                case '=':
+                    System.out.print("10"); // Krzysiek. I changed "10" on " 0" because it printed "110"
                     break;
                 default:
                     System.out.print(" " + singleChar);            

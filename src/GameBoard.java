@@ -51,7 +51,7 @@ public class GameBoard {
 
     public String createTitleLine() {
         StringBuilder titleLine = new StringBuilder();
-        titleLine.append(leftPause + boardBorder + tripplePause + "PLAYER_1" + tripplePause);
+        titleLine.append(leftPause + boardBorder + tripplePause + pause + "PLAYER_1" + doublePause);
         titleLine.append(interPause);
         titleLine.append(tripplePause + "PLAYER_2" + tripplePause + boardBorder);
         titleLine.append("\n");
@@ -85,10 +85,8 @@ public class GameBoard {
         for(int i = 0; i < 10; i++) {
             
             List<Square> singleLineOceanOne = new ArrayList<>();
-            // singleLineOceanOne = (playerOne.getPlayerOcean().getSquares().get(i));
             singleLineOceanOne = (oceanOne.getSquares().get(i));
             List<Square> singleLineOceanTwo = new ArrayList<>();
-            // singleLineOceanTwo = (playerTwo.getPlayerOcean().getSquares().get(i));
             singleLineOceanTwo = (oceanTwo.getSquares().get(i));
             
             StringBuilder fullSingleOceanLine = new StringBuilder();
@@ -96,7 +94,7 @@ public class GameBoard {
             if(i < 9) {
                 fullSingleOceanLine.append(leftPause + boardBorder + pause + (i + 1) + oceanBorder);
             } else {
-                fullSingleOceanLine.append(leftPause + boardBorder + (i + 1) + oceanBorder);
+                fullSingleOceanLine.append(leftPause + boardBorder + pause + "=" + oceanBorder);
             }
             for(int j = 0; j < 10; j++) {
                 fullSingleOceanLine.append(singleLineOceanOne.get(j).toString());
@@ -105,7 +103,7 @@ public class GameBoard {
             if(i < 9) {
                 fullSingleOceanLine.append(oceanBorder + interPause + (i + 1) + oceanBorder);
             } else {
-                fullSingleOceanLine.append(oceanBorder + pause + boardBorder + (i + 1) + oceanBorder);
+                fullSingleOceanLine.append(oceanBorder +  interPause + "=" + oceanBorder);
             }           
             for(int k = 0; k < 10; k++) {
                 fullSingleOceanLine.append(singleLineOceanTwo.get(k).toString());
