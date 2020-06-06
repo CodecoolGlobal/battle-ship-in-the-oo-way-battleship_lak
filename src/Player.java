@@ -38,7 +38,7 @@ public class Player {
 
     public void playerTurn(Ocean enemyOcean) {
         printMessage();
-        Coordinates chosenSqureCoordinates = getChoice();
+        Coordinates chosenSqureCoordinates = getChoice(enemyOcean);
         markChosenSquare(chosenSqureCoordinates, enemyOcean);
     }
 
@@ -48,14 +48,24 @@ public class Player {
     }
 
 
-    public Coordinates getChoice () {
+    public Coordinates getChoice (Ocean enemyOcean) {
         List<String> letters = playerOcean.getLetters();
         List<String> strNumbers = playerOcean.getStrNumbers();
  
         System.out.println("Choose coordinates, which you would like to strike");
+        
+        Square chosenSquare = new Square();
+        Coordinates chosenSqureCoordinates = new Coordinates(0, 0);
 
-        Coordinates coordinates = getCoordinatesFromPlayer(letters, strNumbers);
-        return coordinates;
+        boolean isRunning = true;
+        while (isRunning == true) {
+            chosenSqureCoordinates = getCoordinatesFromPlayer(letters, strNumbers);
+            chosenSquare = enemyOcean.getSqare(chosenSqureCoordinates);
+            if(chosenSquare.getIsHit() == false) {
+                isRunning = false;
+            }
+        }
+        return chosenSqureCoordinates;
     }
 
 
