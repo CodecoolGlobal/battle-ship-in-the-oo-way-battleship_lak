@@ -12,6 +12,7 @@ public class Engine {
     public void runGame() {
         int option = 1;
         boolean isRunning = true;
+        boolean isCheatOn = false;
 
         while (option != 0 && isRunning == true) {
 
@@ -21,7 +22,7 @@ public class Engine {
 
                 switch (option) {
                     case 1:
-                        fightPvC();
+                        fightPvC(isCheatOn);
                         isRunning = false;
                         break;
                     case 2:
@@ -30,6 +31,11 @@ public class Engine {
                         break;
                     case 3:
                         fightCvC();
+                        isRunning = false;
+                        break;
+                    case 4: 
+                        isCheatOn = true;
+                        fightPvC(isCheatOn);
                         isRunning = false;
                         break;
                     case 0:
@@ -47,7 +53,7 @@ public class Engine {
     
     private static void printMenu() {
         
-        String options[] = {"Single player", "Multiplayer", "Simulation"};
+        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode"};
         
         System.out.print("\033[H\033[2J");  
         System.out.flush();
@@ -62,11 +68,14 @@ public class Engine {
     }
 
 
-    private static void fightPvC() {
+    private static void fightPvC(boolean isCheatOn) {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
-        enemyOcean.hideBoard();
-        
+
+        if (isCheatOn == false) {
+            enemyOcean.hideBoard();
+        }
+                
         GameBoard boardPVC = new GameBoard(player1Ocean, enemyOcean);
         DisplayBoard displayBoardPVC = new DisplayBoard(boardPVC.toString());
         
@@ -248,8 +257,8 @@ public class Engine {
         Ship Submarine = new Ship("Submarine", 3, true, 0, 0);
         Ship Destroyer = new Ship("Destroyer", 2, true, 0, 0);
 
-        // List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
-        List<Ship> ships = Arrays.asList(Destroyer);
+        List<Ship> ships = Arrays.asList(Carrier, Battleship, Cruiser, Submarine, Destroyer);
+        // List<Ship> ships = Arrays.asList(Submarine, Destroyer);
 
         return ships;
     }
