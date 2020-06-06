@@ -130,12 +130,14 @@ public class Engine {
         while(player1.getIsDefeated() == false && player2.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
                 player1.playerTurn(player2Ocean);
+                sunk.checkIfSunk(player2Ocean);
                 displayBoard1PVP = new DisplayBoard(board1PVP.toString());
                 displayBoard1PVP.displayBoard();
                 waitUntilEnter();
 
             } else {
                 player2.playerTurn(player1Ocean);
+                sunk.checkIfSunk(player1Ocean);
                 displayBoard2PVP = new DisplayBoard(board2PVP.toString());
                 displayBoard2PVP.displayBoard();
                 waitUntilEnter();
