@@ -45,7 +45,7 @@ public class DisplayBoard {
                     System.out.print("\u001B[47m" + "  " + "\u001B[0m");
                     break;
                 case '=':
-                    System.out.print("10"); // Krzysiek. I changed "10" on " 0" because it printed "110"
+                    System.out.print("10");
                     break;
                 default:
                     System.out.print(" " + singleChar);            

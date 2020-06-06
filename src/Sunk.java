@@ -3,7 +3,27 @@ import java.lang.Math;
 
 public class Sunk {
     
-    public void markSquaresAroundSunkenShip(Ocean ocean, Ship ship) {
+    public void checkIfSunk(Ocean ocean) {    
+        for (Ship ship : ocean.getShips()) {
+            int pruductSquares = 1;
+
+            if (!ship.getIsSunk()) {
+                for (int index = 0; index < ship.getShipLength(); index++) {
+                    if (ship.getSquaresOfShip().get(index).getIsHit())
+                        pruductSquares = pruductSquares * 1;
+                    else
+                        pruductSquares = pruductSquares * 0;
+                }
+                if (pruductSquares == 1) {
+                    markSquaresAroundSunkenShip(ocean, ship);
+                    ship.setIsSunk();
+                }
+            }
+        }
+    }
+
+
+    private static void markSquaresAroundSunkenShip(Ocean ocean, Ship ship) {
         int cordinateX;
         int cordinateY;
         

@@ -82,7 +82,6 @@ public class Player {
         return coordinate;
     }
 
-
     public void markChosenSquare (Coordinates chosenSqureCoordinates, Ocean targetOcean) {
         Square chosenSquare = targetOcean.getSqare(chosenSqureCoordinates);
         chosenSquare.hit();

@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 
 public class Engine { 
     private static Scanner scanner = new Scanner(System.in);
+    private static Sunk sunk = new Sunk();
     private static int turnCounter = 0;
     
     public void runGame() {
@@ -39,7 +40,7 @@ public class Engine {
                 }
                 
             }
-            catch (InputMismatchException e) {}
+            catch (InputMismatchException e) {scanner.next();}
         }
     }
 
@@ -48,8 +49,8 @@ public class Engine {
         
         String options[] = {"Single player", "Multiplayer", "Simulation"};
         
-        //System.out.print("\033[H\033[2J");  
-        //System.out.flush();
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();
         
         System.out.println("WELCOME TO BATTLESHIP GAME\n");
         System.out.println("MENU:");
@@ -91,14 +92,14 @@ public class Engine {
     }
 
 
-    private static void gameLoopPvC(Player player1,Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
+    private static void gameLoopPvC(Player player1, Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
         Ocean player1Ocean = player1.getPlayerOcean();
-        Ocean enemyOcean = enemy1.getPlayerOcean();
-
+        Ocean enemyOcean = enemy1.getPlayerOcean();    
 
         while(player1.getIsDefeated() == false && enemy1.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
                 player1.playerTurn(enemyOcean);
+                sunk.checkIfSunk(enemyOcean);
                 clearScreen();
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
@@ -106,6 +107,7 @@ public class Engine {
             } else {
                 clearScreen();
                 enemy1.enemyTurn(player1Ocean);
+                sunk.checkIfSunk(player1Ocean);
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
 
