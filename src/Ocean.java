@@ -123,6 +123,7 @@ public class Ocean {
                 coordinateY = ocean.getStrNumbers().indexOf(strCoordinates.substring(1, 3));
             }
             
+            if (strCoordinates.length() == 2 || strCoordinates.length() == 3) {
                 correctX = checkIfInRange(ship, coordinateX, "letter");
                 correctY = checkIfInRange(ship, coordinateY, "number");
 
@@ -130,7 +131,8 @@ public class Ocean {
                     ship.setCoordinateX(coordinateX);
                     ship.setCoordinateY(coordinateY);
                     isCorrect = true;
-                }   
+                }
+            }
         }
     } 
 
