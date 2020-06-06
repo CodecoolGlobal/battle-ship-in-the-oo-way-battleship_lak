@@ -48,40 +48,51 @@ public class Player {
     }
 
 
-    // REFACTOR HERE, Create field in ocean object in which stores array of coordinates,
-    // import it here
     public Coordinates getChoice () {
-        List<String> letters = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
-        List<String> strNumbers = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+        List<String> letters = playerOcean.getLetters();
+        List<String> strNumbers = playerOcean.getStrNumbers();
  
-        System.out.println("Choose letter of field, which you would like to strike.");
-        int xCoordinate = getCoordinateFromPlayer(letters);
+        System.out.println("Choose coordinates, which you would like to strike");
 
-        System.out.println("Choose letter of field, which you would like to strike.");
-        int yCoordinate = getCoordinateFromPlayer(strNumbers);
-
-        Coordinates coordinates = new Coordinates(xCoordinate, yCoordinate);
+        Coordinates coordinates = getCoordinatesFromPlayer(letters, strNumbers);
         return coordinates;
     }
 
 
-    public int getCoordinateFromPlayer (List<String> valuesList) {
+    public Coordinates getCoordinatesFromPlayer (List<String> valuesListLetters, List<String> valuesListNumbers) {
         boolean isRunning = true;
         // Scanner scanner = new Scanner(System.in);
-        int coordinate = 0;
+        Coordinates square = new Coordinates(0, 0);
 
         while (isRunning == true) {
             String playerInput = scanner.nextLine().toUpperCase();
-            if (valuesList.contains(playerInput)) {
-                coordinate = valuesList.indexOf(playerInput);
+
+            char letterCoordinateChar = playerInput.charAt(0);
+            String letterCoordinate = String.valueOf(letterCoordinateChar);
+
+            char numCoordinateChar = playerInput.charAt(1);
+            String numCoordinate = String.valueOf(numCoordinateChar);
+
+            if (checkInputLength(playerInput) == true &&
+                valuesListLetters.contains(letterCoordinate) && valuesListNumbers.contains(numCoordinate)) {
+                square.setX(valuesListLetters.indexOf(letterCoordinate));
+                square.setY(valuesListNumbers.indexOf(numCoordinate));
                 isRunning = false;
             }
-
         }
 
-        // scanner.close();
-        return coordinate;
+        // scanner  .close();
+        return square;
     }
+
+    public boolean checkInputLength(String inputString) {
+        if (inputString.length() == 2) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
+
 
     public void markChosenSquare (Coordinates chosenSqureCoordinates, Ocean targetOcean) {
         Square chosenSquare = targetOcean.getSqare(chosenSqureCoordinates);
