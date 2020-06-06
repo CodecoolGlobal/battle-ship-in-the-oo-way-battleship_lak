@@ -67,7 +67,7 @@ public class Engine {
         Ocean enemyOcean = getEnemyOcean();
         enemyOcean.hideBoard();
         
-        GameBoard boardPVC = new GameBoard(enemyOcean, player1Ocean);
+        GameBoard boardPVC = new GameBoard(player1Ocean, enemyOcean);
         DisplayBoard displayBoardPVC = new DisplayBoard(boardPVC.toString());
         
         clearScreen();
@@ -169,8 +169,8 @@ public class Engine {
         Ocean hiddenPlayer1Ocean = player1Ocean.deepCopyOcean(hiddenPlayer1Ships, player1Ocean.getShips());
         Ocean hiddenPlayer2Ocean = player2Ocean.deepCopyOcean(hiddenPlayer2Ships, player2Ocean.getShips());
 
-        GameBoard board1PVP = new GameBoard(hiddenPlayer2Ocean, player1Ocean);
-        GameBoard board2PVP = new GameBoard(hiddenPlayer1Ocean, player2Ocean);
+        GameBoard board1PVP = new GameBoard(player1Ocean, hiddenPlayer2Ocean);
+        GameBoard board2PVP = new GameBoard(player2Ocean, hiddenPlayer1Ocean);
         
         DisplayBoard displayBoard1PVP = new DisplayBoard(board1PVP.toString());
         DisplayBoard displayBoard2PVP = new DisplayBoard(board2PVP.toString());
