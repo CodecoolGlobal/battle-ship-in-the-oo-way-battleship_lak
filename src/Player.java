@@ -3,7 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player {  
-    private static Scanner scanner = new Scanner(System.in);
+    //close it
+    private Scanner scanner = new Scanner(System.in);
     private Ocean playerOcean;
     private int playerId;
     private boolean isDefeated = false;

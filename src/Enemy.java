@@ -10,12 +10,12 @@ public class Enemy extends Player {
 
     public void enemyTurn(Ocean playerOcean) {
         // printMessage();
-        Coordinates chosenSqureCoordinates = getRandomCoordinates();
+        Coordinates chosenSqureCoordinates = getRandomCoordinates_easy();
         markChosenSquare(chosenSqureCoordinates, playerOcean);
     }
 
 
-    public Coordinates getRandomCoordinates() {
+    public Coordinates getRandomCoordinates_easy() {
         boolean isRunning = true;
         int rowIndex = 0;
         int tileIndex = 0;
