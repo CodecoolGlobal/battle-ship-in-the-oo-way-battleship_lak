@@ -66,12 +66,22 @@ public class Player {
 
         while (isRunning == true) {
             String playerInput = scanner.nextLine().toUpperCase();
+            String letterCoordinate = null;
+            String numCoordinate = null;
 
+            try {
             char letterCoordinateChar = playerInput.charAt(0);
-            String letterCoordinate = String.valueOf(letterCoordinateChar);
-
+            letterCoordinate = String.valueOf(letterCoordinateChar);
+            } catch (Exception StringIndexOutOfBoundsException) {
+                continue;
+            }
+            try {
             char numCoordinateChar = playerInput.charAt(1);
-            String numCoordinate = String.valueOf(numCoordinateChar);
+            numCoordinate = String.valueOf(numCoordinateChar);
+            } catch (Exception StringIndexOutOfBoundsException) {
+                continue;
+            }
+
 
             if (checkInputLength(playerInput) == true &&
                 valuesListLetters.contains(letterCoordinate) && valuesListNumbers.contains(numCoordinate)) {
@@ -81,7 +91,7 @@ public class Player {
             }
         }
 
-        // scanner  .close();
+        // scanner.close();
         return square;
     }
 
