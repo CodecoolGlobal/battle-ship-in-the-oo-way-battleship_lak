@@ -46,13 +46,17 @@ public class EnemyHard extends EnemyMedium {
             int Y = rn.nextInt(ocean.getSquares().size());
 
             if (Y % 2 == 0) 
-                rowIndex = X * 2 - 1;
+                rowIndex = X * 2 + 1;
             else
                 rowIndex = X * 2;
             tileIndex = Y;
 
-            if (!ocean.getSquares().get(tileIndex).get(rowIndex).getIsHit())
+            try {
+                if (!ocean.getSquares().get(tileIndex).get(rowIndex).getIsHit())
                 isRunning = false;
+            } catch (Exception IndexOutOfBoundsException) {
+                continue;
+            }
 
         }
         Coordinates squareCoordinates = new Coordinates(rowIndex, tileIndex);

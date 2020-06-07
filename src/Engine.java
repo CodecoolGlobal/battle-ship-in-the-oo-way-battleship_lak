@@ -102,6 +102,8 @@ public class Engine {
         Enemy enemy1 = new Enemy(enemyOcean, enemyId);
         if (difficulty == "medium") {
             enemy1 = new EnemyMedium(enemyOcean, enemyId);
+        } else if (difficulty == "hard") {
+            enemy1 = new EnemyHard(enemyOcean, enemyId);
         }
 
         gameLoopPvC(player1, enemy1, displayBoardPVC, boardPVC, difficulty);

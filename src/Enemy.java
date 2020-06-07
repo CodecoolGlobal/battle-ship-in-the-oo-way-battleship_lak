@@ -10,14 +10,13 @@ public class Enemy extends Player {
 
 
     public void enemyTurn(Ocean playerOcean, String difficulty) {
-        // printMessage();
-        if (difficulty == "easy") {
-            Coordinates chosenSqureCoordinates = getRandomCoordinates_easy();
-            markChosenSquare(chosenSqureCoordinates, playerOcean);
-        } else if (difficulty == "hard") {
-            Coordinates chosenSqureCoordinates = getCoordinates_hard_LL(playerOcean);
-            markChosenSquare(chosenSqureCoordinates, playerOcean);
-        }
+        // if (difficulty == "easy") {
+        Coordinates chosenSqureCoordinates = getRandomCoordinates_easy();
+        markChosenSquare(chosenSqureCoordinates, playerOcean);
+        // } else if (difficulty == "hard") {
+        //     Coordinates chosenSqureCoordinates = getCoordinates_hard_LL(playerOcean);
+        //     markChosenSquare(chosenSqureCoordinates, playerOcean);
+        // }
     }
 
 
