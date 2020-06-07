@@ -15,7 +15,7 @@ public class EnemyMedium extends Enemy {
 
 
     @Override
-    public void enemyTurn(Ocean ocean) {  
+    public void enemyTurn(Ocean ocean, String difficulty) {  
         boolean checkOneMore = true;
 
         while (checkOneMore) {
