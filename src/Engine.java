@@ -13,6 +13,7 @@ public class Engine {
         int option = 1;
         boolean isRunning = true;
         boolean isCheatOn = false;
+        String difficulty = "easy";
 
         while (option != 0 && isRunning == true) {
 
@@ -22,7 +23,7 @@ public class Engine {
 
                 switch (option) {
                     case 1:
-                        fightPvC(isCheatOn);
+                        fightPvC(isCheatOn, difficulty);
                         isRunning = false;
                         break;
                     case 2:
@@ -35,7 +36,12 @@ public class Engine {
                         break;
                     case 4: 
                         isCheatOn = true;
-                        fightPvC(isCheatOn);
+                        fightPvC(isCheatOn, difficulty);
+                        isRunning = false;
+                        break;
+                    case 5:
+                        difficulty = "hard";
+                        fightPvC(isCheatOn, difficulty);
                         isRunning = false;
                         break;
                     case 0:
@@ -53,7 +59,7 @@ public class Engine {
     
     private static void printMenu() {
         
-        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode"};
+        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode", "Single player - hard mode"};
         
         System.out.print("\033[H\033[2J");  
         System.out.flush();
@@ -68,7 +74,7 @@ public class Engine {
     }
 
 
-    private static void fightPvC(boolean isCheatOn) {
+    private static void fightPvC(boolean isCheatOn, String difficulty) {
         Ocean player1Ocean = getPlayerOcean();
         Ocean enemyOcean = getEnemyOcean();
 
@@ -90,7 +96,7 @@ public class Engine {
         Player player1 = new Player(player1Ocean, playerId);
         Enemy enemy1 = new Enemy(enemyOcean, enemyId);
 
-        gameLoopPvC(player1, enemy1, displayBoardPVC, boardPVC);
+        gameLoopPvC(player1, enemy1, displayBoardPVC, boardPVC, difficulty);
 
         if (player1.getIsDefeated() == true) {
             System.out.println("YOU LOST IN " + turnCounter + " TURNS");
@@ -101,7 +107,7 @@ public class Engine {
     }
 
 
-    private static void gameLoopPvC(Player player1, Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC) {
+    private static void gameLoopPvC(Player player1, Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC, String difficulty) {
         Ocean player1Ocean = player1.getPlayerOcean();
         Ocean enemyOcean = enemy1.getPlayerOcean();    
 
@@ -115,7 +121,7 @@ public class Engine {
                 waitUntilEnter();
             } else {
                 clearScreen();
-                enemy1.enemyTurn(player1Ocean);
+                enemy1.enemyTurn(player1Ocean, difficulty);
                 sunk.checkIfSunk(player1Ocean);
                 displayBoardPVC = new DisplayBoard(boardPVC.toString());
                 displayBoardPVC.displayBoard();
@@ -127,6 +133,34 @@ public class Engine {
 
             turnCounter++;
         }
+    }
+
+
+    private static void gameLoopCvC(Enemy enemy1, Enemy enemy2, DisplayBoard displayBoardCVC, GameBoard boardCVC, String difficulty) {
+        Ocean enemy1Ocean = enemy1.getPlayerOcean();
+        Ocean enemy2Ocean = enemy2.getPlayerOcean();    
+
+        while(enemy1.getIsDefeated() == false && enemy2.getIsDefeated() == false) {
+            if(turnCounter % 2 == 0){
+                clearScreen();
+                enemy1.enemyTurn(enemy2Ocean, difficulty);
+                sunk.checkIfSunk(enemy2Ocean);
+                displayBoardCVC = new DisplayBoard(boardCVC.toString());
+                displayBoardCVC.displayBoard();
+                waitUntilEnter();
+            } else {
+                clearScreen();
+                enemy2.enemyTurn(enemy1Ocean, difficulty);
+                sunk.checkIfSunk(enemy1Ocean);
+                displayBoardCVC = new DisplayBoard(boardCVC.toString());
+                displayBoardCVC.displayBoard();
+            }
+
+            enemy1.checkIfDefeated();
+            enemy2.checkIfDefeated();
+
+            turnCounter++;
+        } 
     }
 
 
@@ -212,9 +246,26 @@ public class Engine {
         GameBoard boardCVC = new GameBoard(enemy1Ocean, enemy2Ocean);
         
         DisplayBoard displayBoardCVC = new DisplayBoard(boardCVC.toString());
+
+        clearScreen();
         displayBoardCVC.displayBoard();
-    
+        
         //Add fight
+
+        int enemy1Id = 1;
+        int enemy2Id = 2;
+
+        Enemy enemy1 = new Enemy(enemy1Ocean, enemy1Id);
+        Enemy enemy2 = new Enemy(enemy2Ocean, enemy2Id);
+
+        gameLoopCvC(enemy1, enemy2, displayBoardCVC, boardCVC, "easy");
+
+        if (enemy1.getIsDefeated() == true) {
+            System.out.println("PLAYER 1 WON IN " + turnCounter + " TURNS");
+        } else if (enemy2.getIsDefeated() == true) {
+            System.out.println("PLAYER 2 WON IN " + turnCounter + " TURNS");
+        }
+
     }
 
 
@@ -262,6 +313,7 @@ public class Engine {
 
         return ships;
     }
+    
 }   
 
 
