@@ -9,10 +9,15 @@ public class Enemy extends Player {
     }
 
 
-    public void enemyTurn(Ocean playerOcean) {
+    public void enemyTurn(Ocean playerOcean, String difficulty) {
         // printMessage();
-        Coordinates chosenSqureCoordinates = getRandomCoordinates_easy();
-        markChosenSquare(chosenSqureCoordinates, playerOcean);
+        if (difficulty == "easy") {
+            Coordinates chosenSqureCoordinates = getRandomCoordinates_easy();
+            markChosenSquare(chosenSqureCoordinates, playerOcean);
+        } else if (difficulty == "hard") {
+            Coordinates chosenSqureCoordinates = getCoordinates_hard_LL(playerOcean);
+            markChosenSquare(chosenSqureCoordinates, playerOcean);
+        }
     }
 
 
@@ -67,12 +72,14 @@ public class Enemy extends Player {
         return coordinatesCandidate;
     }
 
+
     private int getFreeTilesQty(List<Square> row, int refElementIndex) {
         int freeLengthCombined = getFreeTilesOneSide(row, refElementIndex, true)
          + getFreeTilesOneSide(row, refElementIndex, false) + 1;
 
         return freeLengthCombined;
     }
+
 
     private int getFreeTilesOneSide(List<Square> row, int refElementIndex, boolean goRigth) {
         int iterator = 0;

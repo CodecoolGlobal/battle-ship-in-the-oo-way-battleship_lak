@@ -92,21 +92,45 @@ public class Player {
                 continue;
             }
 
-
-            if (checkInputLength(playerInput) == true &&
+            //check standard cases
+            if (checkInputLength(playerInput, 2) == true &&
                 valuesListLetters.contains(letterCoordinate) && valuesListNumbers.contains(numCoordinate)) {
                 square.setX(valuesListLetters.indexOf(letterCoordinate));
                 square.setY(valuesListNumbers.indexOf(numCoordinate));
                 isRunning = false;
             }
+
+            //check case when input is a10 or f10 etc:
+            if (checkInputLength(playerInput, 3) == true &&
+             checkInputFor10thRow(playerInput) == true && valuesListLetters.contains(letterCoordinate)) {
+                numCoordinate = "10";
+                square.setX(valuesListLetters.indexOf(letterCoordinate));
+                square.setY(valuesListNumbers.indexOf(numCoordinate));
+                isRunning = false;
+            }
+
+            
         }
 
         // scanner.close();
         return square;
     }
 
-    public boolean checkInputLength(String inputString) {
-        if (inputString.length() == 2) {
+    public boolean checkInputFor10thRow (String inputString) {
+        try {
+            if (inputString.charAt(1) == '1' && inputString.charAt(2) == '0') {
+                return true;
+            }
+        } catch (Exception StringIndexOutOfBoundsException) {
+            ;
+        }
+
+        return false;
+
+    }
+
+    public boolean checkInputLength(String inputString, int lengthToCompare) {
+        if (inputString.length() == lengthToCompare) {
             return true;
         } else {
             return false;
