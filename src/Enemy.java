@@ -67,12 +67,14 @@ public class Enemy extends Player {
         return coordinatesCandidate;
     }
 
+    
     private int getFreeTilesQty(List<Square> row, int refElementIndex) {
         int freeLengthCombined = getFreeTilesOneSide(row, refElementIndex, true)
          + getFreeTilesOneSide(row, refElementIndex, false) + 1;
 
         return freeLengthCombined;
     }
+
 
     private int getFreeTilesOneSide(List<Square> row, int refElementIndex, boolean goRigth) {
         int iterator = 0;
