@@ -23,6 +23,7 @@ public class Engine {
 
                 switch (option) {
                     case 1:
+                        difficulty = choseDifficultySetting("Enemy");
                         fightPvC(isCheatOn, difficulty);
                         isRunning = false;
                         break;
@@ -31,24 +32,27 @@ public class Engine {
                         isRunning = false;
                         break;
                     case 3:
-                        fightCvC();
+                        String difficulty1 = choseDifficultySetting("Enemy 1");
+                        String difficulty2 = choseDifficultySetting("Enemy 2");
+                        fightCvC(difficulty1, difficulty2);
                         isRunning = false;
                         break;
                     case 4: 
                         isCheatOn = true;
+                        difficulty = choseDifficultySetting("Enemy");
                         fightPvC(isCheatOn, difficulty);
                         isRunning = false;
                         break;
-                    case 5:
-                        difficulty = "medium";
-                        fightPvC(isCheatOn, difficulty);
-                        isRunning = false;
-                        break;
-                    case 6:
-                        difficulty = "hard";
-                        fightPvC(isCheatOn, difficulty);
-                        isRunning = false;
-                        break;
+                    // case 5:
+                    //     difficulty = "medium";
+                    //     fightPvC(isCheatOn, difficulty);
+                    //     isRunning = false;
+                    //     break;
+                    // case 6:
+                    //     difficulty = "hard";
+                    //     fightPvC(isCheatOn, difficulty);
+                    //     isRunning = false;
+                    //     break;
                     case 0:
                         System.out.println("Bye bye");
                         break;
@@ -64,7 +68,7 @@ public class Engine {
     
     private static void printMenu() {
         
-        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode", "Single player -medium", "Single player - hard mode"};
+        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode"};
         
         System.out.print("\033[H\033[2J");  
         System.out.flush();
@@ -76,6 +80,21 @@ public class Engine {
             System.out.println("  " + i + ". " + options[i - 1]);
 
         System.out.println("  0. Exit game.");
+    }
+
+
+    private static void printDifficulties(String targetName) {
+
+
+        String options[] = {"Easy", "Medium", "Hard"};
+        
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();
+
+        System.out.println("Set difficulty for " + targetName);
+        
+        for (int i = 1; i <= options.length; i++)
+            System.out.println("  " + i + ". " + options[i - 1]);
     }
 
 
@@ -117,6 +136,39 @@ public class Engine {
     }
 
 
+    private static String choseDifficultySetting (String targetName) {
+        int option = 1;
+        boolean isRunning = true;
+        String difficulty = null;
+
+        while (isRunning == true) {
+
+            try {
+                printDifficulties(targetName);
+                option = scanner.nextInt();
+
+                switch (option) {
+                    case 1:
+                        difficulty = "easy";
+                        isRunning = false;
+                        break;
+                    case 2:
+                        difficulty = "medium";
+                        isRunning = false;
+                        break;
+                    case 3:
+                        difficulty = "hard";
+                        isRunning = false;
+                        break;
+                }
+                
+            }
+            catch (InputMismatchException e) {scanner.next();}
+        }
+        return difficulty;
+    }
+
+
     private static void gameLoopPvC(Player player1, Enemy enemy1, DisplayBoard displayBoardPVC, GameBoard boardPVC, String difficulty) {
         Ocean player1Ocean = player1.getPlayerOcean();
         Ocean enemyOcean = enemy1.getPlayerOcean();    
@@ -146,21 +198,21 @@ public class Engine {
     }
 
 
-    private static void gameLoopCvC(Enemy enemy1, Enemy enemy2, DisplayBoard displayBoardCVC, GameBoard boardCVC, String difficulty) {
+    private static void gameLoopCvC(Enemy enemy1, Enemy enemy2, DisplayBoard displayBoardCVC, GameBoard boardCVC, String difficulty1, String difficulty2) {
         Ocean enemy1Ocean = enemy1.getPlayerOcean();
         Ocean enemy2Ocean = enemy2.getPlayerOcean();    
 
         while(enemy1.getIsDefeated() == false && enemy2.getIsDefeated() == false) {
             if(turnCounter % 2 == 0){
                 clearScreen();
-                enemy1.enemyTurn(enemy2Ocean, difficulty);
+                enemy1.enemyTurn(enemy2Ocean, difficulty1);
                 sunk.checkIfSunk(enemy2Ocean);
                 displayBoardCVC = new DisplayBoard(boardCVC.toString());
                 displayBoardCVC.displayBoard();
                 waitUntilEnter();
             } else {
                 clearScreen();
-                enemy2.enemyTurn(enemy1Ocean, difficulty);
+                enemy2.enemyTurn(enemy1Ocean, difficulty2);
                 sunk.checkIfSunk(enemy1Ocean);
                 displayBoardCVC = new DisplayBoard(boardCVC.toString());
                 displayBoardCVC.displayBoard();
@@ -249,7 +301,7 @@ public class Engine {
     }
 
 
-    private static void fightCvC() {
+    private static void fightCvC(String difficulty1, String difficulty2) {
         Ocean enemy1Ocean = getEnemyOcean();
         Ocean enemy2Ocean = getEnemyOcean();
         
@@ -266,9 +318,20 @@ public class Engine {
         int enemy2Id = 2;
 
         Enemy enemy1 = new Enemy(enemy1Ocean, enemy1Id);
-        Enemy enemy2 = new Enemy(enemy2Ocean, enemy2Id);
+        if (difficulty1 == "medium") {
+            enemy1 = new EnemyMedium(enemy1Ocean, enemy1Id);
+        } else if (difficulty1 == "hard") {
+            enemy1 = new EnemyHard(enemy1Ocean, enemy1Id);
+        }
 
-        gameLoopCvC(enemy1, enemy2, displayBoardCVC, boardCVC, "hard");
+        Enemy enemy2 = new Enemy(enemy2Ocean, enemy2Id);
+        if (difficulty2 == "medium") {
+            enemy2 = new EnemyMedium(enemy2Ocean, enemy2Id);
+        } else if (difficulty2 == "hard") {
+            enemy2 = new EnemyHard(enemy2Ocean, enemy2Id);
+        }
+
+        gameLoopCvC(enemy1, enemy2, displayBoardCVC, boardCVC, difficulty1, difficulty2);
 
         if (enemy1.getIsDefeated() == true) {
             System.out.println("PLAYER 1 WON IN " + turnCounter + " TURNS");
