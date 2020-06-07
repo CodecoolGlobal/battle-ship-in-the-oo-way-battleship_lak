@@ -94,7 +94,7 @@ public class Engine {
         int enemyId = 2;
 
         Player player1 = new Player(player1Ocean, playerId);
-        Enemy enemy1 = new Enemy(enemyOcean, enemyId);
+        Enemy enemy1 = new EnemyMedium(enemyOcean, enemyId); //
 
         gameLoopPvC(player1, enemy1, displayBoardPVC, boardPVC, difficulty);
 
