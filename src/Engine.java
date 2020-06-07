@@ -40,6 +40,11 @@ public class Engine {
                         isRunning = false;
                         break;
                     case 5:
+                        difficulty = "medium";
+                        fightPvC(isCheatOn, difficulty);
+                        isRunning = false;
+                        break;
+                    case 6:
                         difficulty = "hard";
                         fightPvC(isCheatOn, difficulty);
                         isRunning = false;
@@ -59,7 +64,7 @@ public class Engine {
     
     private static void printMenu() {
         
-        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode", "Single player - hard mode"};
+        String options[] = {"Single player", "Multiplayer", "Simulation", "Single player - cheat mode", "Single player -medium", "Single player - hard mode"};
         
         System.out.print("\033[H\033[2J");  
         System.out.flush();
@@ -94,7 +99,10 @@ public class Engine {
         int enemyId = 2;
 
         Player player1 = new Player(player1Ocean, playerId);
-        Enemy enemy1 = new EnemyMedium(enemyOcean, enemyId); //
+        Enemy enemy1 = new Enemy(enemyOcean, enemyId);
+        if (difficulty == "medium") {
+            enemy1 = new EnemyMedium(enemyOcean, enemyId);
+        }
 
         gameLoopPvC(player1, enemy1, displayBoardPVC, boardPVC, difficulty);
 
@@ -258,7 +266,7 @@ public class Engine {
         Enemy enemy1 = new Enemy(enemy1Ocean, enemy1Id);
         Enemy enemy2 = new Enemy(enemy2Ocean, enemy2Id);
 
-        gameLoopCvC(enemy1, enemy2, displayBoardCVC, boardCVC, "easy");
+        gameLoopCvC(enemy1, enemy2, displayBoardCVC, boardCVC, "hard");
 
         if (enemy1.getIsDefeated() == true) {
             System.out.println("PLAYER 1 WON IN " + turnCounter + " TURNS");
